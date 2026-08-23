@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #040406; /* Solid dark black background */
+  --color-bg-secondary: #0D0E12; /* Rich charcoal container background */
+  --color-card-bg: #12131A; /* Card surface panels */
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #A8ACB8;
+  --color-text-muted: #6F7480;
+  --color-brand-accent: #E50914; /* Premium OTT Crimson Red */
+  --color-brand-accent-hover: #B80710; /* Darker red on hover */
+}
+
+@layer base {
+  body {
+    @apply bg-background text-text-primary font-sans antialiased overflow-x-hidden select-none;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #040406;
+}
+::-webkit-scrollbar-thumb {
+  background: #1A1C24;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #E50914; /* Crimson highlights on hover */
+}
+
+/* Hide scrollbar for layout elements but allow scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Glass effect */
+.glass-panel {
+  background: rgba(18, 19, 26, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Custom styles for Range inputs */
+input[type="range"] {
+  accent-color: #E50914;
+}
+
+/* Slide in animation for toasts */
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.animate-slide-in {
+  animation: slideIn 0.25s ease-out forwards;
+}
+
+/* Fade in animation for hero */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.6;
+  }
+}
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
