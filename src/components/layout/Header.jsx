@@ -352,7 +352,7 @@ export default function Header() {
         ) : (
           <Link
             to="/login"
-            className="px-4.5 py-2 bg-brand-accent hover:bg-brand-accent-hover text-white font-bold rounded-lg text-xs transition-all tracking-wider shadow-md shadow-brand-accent/10 hover:scale-105 active:scale-95"
+            className="px-4.5 py-2 bg-white/10 hover:bg-white/15 border border-white/10 text-white font-bold rounded-lg text-xs transition-all hover:scale-105 active:scale-95 shadow-md"
           >
             Sign In
           </Link>
