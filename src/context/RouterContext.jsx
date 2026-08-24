@@ -48,11 +48,14 @@ export const RouterProvider = ({ children }) => {
   );
 };
 
-export const Link = ({ to, children, className, ...props }) => {
+export const Link = ({ to, children, className, onClick, ...props }) => {
   const { navigate } = useRouter();
   
   const handleClick = (e) => {
     e.preventDefault();
+    if (onClick) {
+      onClick(e);
+    }
     navigate(to);
   };
 
