@@ -72,7 +72,7 @@ export default function ComingSoon() {
             <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/40 to-transparent"></div>
           </div>
 
-          <div className="relative z-10 max-w-3xl px-4 md:px-12 select-text animate-fade-in">
+          <div className="relative z-10 max-w-3xl select-text animate-fade-in">
             <div className="flex items-center gap-2 mb-2.5">
               <span className="text-[10px] font-bold bg-amber-500/20 border border-amber-500/30 text-amber-500 px-1.5 py-0.5 rounded flex items-center gap-1 uppercase tracking-wider">
                 <Clock className="w-3 h-3" />
@@ -127,7 +127,7 @@ export default function ComingSoon() {
         </section>
       )}
 
-      <div className="max-w-7xl mx-auto px-4 md:px-12 py-10">
+      <div className="max-w-7xl mx-auto py-10">
         
         {/* Page Header */}
         <div className="border-b border-white/5 pb-4 mb-6">

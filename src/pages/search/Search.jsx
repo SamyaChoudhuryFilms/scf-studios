@@ -77,7 +77,7 @@ export default function Search() {
   const popularSearches = ["The Last Signal", "Sundarban Thrills", "Delhi Heist", "Chasing Light"];
 
   return (
-    <div className="pb-16 min-h-screen bg-background pt-24 px-4 md:px-12 select-text">
+    <div className="pb-16 min-h-screen bg-background pt-24 select-text">
       
       {/* Search Header Input bar */}
       <section className="max-w-4xl mx-auto mb-8">

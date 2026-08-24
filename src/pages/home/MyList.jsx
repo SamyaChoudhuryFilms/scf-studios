@@ -39,7 +39,7 @@ export default function MyList() {
   ];
 
   return (
-    <div className="pb-16 min-h-screen bg-background pt-24 px-4 md:px-12 select-text">
+    <div className="pb-16 min-h-screen bg-background pt-24 select-text">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-2xl font-extrabold text-white mb-6 uppercase tracking-wider flex items-center gap-2">
           <Heart className="w-6 h-6 text-brand-accent fill-brand-accent/20" />

@@ -212,7 +212,7 @@ export default function Home() {
     if (cards.length === 0) return null;
 
     return (
-      <section key={section.id} className="relative group/rail py-6 px-4 md:px-12">
+      <section key={section.id} className="relative group/rail py-6 ">
         <h3 className="text-lg md:text-xl font-extrabold tracking-wide text-text-primary mb-4 flex items-center gap-2">
           {section.title}
           {section.type === 'originals' && <span className="text-[10px] bg-brand-accent text-white font-bold px-1.5 py-0.5 rounded tracking-widest uppercase">Premium</span>}
@@ -262,7 +262,7 @@ export default function Home() {
         </div>
 
         {/* Hero Content Overlay */}
-        <div className="relative z-10 max-w-4xl px-4 md:px-12 mt-16 md:mt-24 select-text">
+        <div className="relative z-10 max-w-4xl mt-16 md:mt-24 select-text">
           {/* Brand Signature Watermark Logo */}
           <div className="flex items-center gap-2 mb-4 opacity-90 select-none">
             <img src="/logo-square.jpg" className="h-8 object-contain invert brightness-125 rounded-md" alt="SCF STUDIOS" />

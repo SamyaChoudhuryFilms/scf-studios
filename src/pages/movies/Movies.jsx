@@ -128,7 +128,7 @@ export default function Movies() {
             <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/20 to-transparent"></div>
           </div>
 
-          <div className="relative z-10 max-w-3xl px-4 md:px-12 select-text">
+          <div className="relative z-10 max-w-3xl select-text">
             <div className="flex items-center gap-2 mb-2.5">
               <Badge variant="premium">Featured Movie</Badge>
               <span className="text-xs font-semibold text-text-secondary">{featured.year}</span>
@@ -198,7 +198,7 @@ export default function Movies() {
       )}
 
       {/* Advanced Filter Bar */}
-      <section className="relative z-10 px-4 md:px-12 py-4 md:py-6 bg-bg-secondary/50 border-y border-white/10 backdrop-blur-[5px]">
+      <section className="relative z-10 py-4 md:py-6 bg-bg-secondary/50 border-y border-white/10 backdrop-blur-[5px]">
         <div className="max-w-7xl mx-auto">
           {/* Mobile Filter Toggle Button */}
           <div className="md:hidden flex justify-start">
@@ -286,7 +286,7 @@ export default function Movies() {
       </section>
 
       {/* Movie Grid / Rails Section */}
-      <section className="px-4 md:px-12 py-10">
+      <section className="py-10">
         {isFiltered ? (
           <>
             <h2 className="text-xl md:text-2xl font-extrabold text-white mb-6">

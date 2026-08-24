@@ -86,7 +86,7 @@ export default function Kids() {
             <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/40 to-transparent"></div>
           </div>
 
-          <div className="relative z-10 max-w-3xl px-4 md:px-12 select-text">
+          <div className="relative z-10 max-w-3xl select-text">
             <div className="flex items-center gap-2 mb-2.5">
               <Badge variant="original" className="bg-yellow-500 text-black border-transparent font-extrabold">KIDS SPACE</Badge>
               <Badge variant="default" className="bg-white/10 text-white font-bold">{featured.rating || 'G'}</Badge>
@@ -147,7 +147,7 @@ export default function Kids() {
       )}
 
       {/* Rails Content List */}
-      <section className="px-4 md:px-12 py-10 space-y-6">
+      <section className="py-10 space-y-6">
         {kidsRails.map(rail => {
           const railItems = rail.filter(kidsContent);
           if (railItems.length === 0) return null;

@@ -31,7 +31,7 @@ export default function Account() {
   const activePlan = currentUser?.subscription || "Free";
 
   return (
-    <div className="pb-16 min-h-screen bg-background pt-24 px-4 md:px-12 select-text">
+    <div className="pb-16 min-h-screen bg-background pt-24 select-text">
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-10">
         
         {/* Left Sidebar Tabs selectors */}

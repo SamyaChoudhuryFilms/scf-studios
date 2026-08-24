@@ -62,7 +62,7 @@ export default function MovieDetail() {
         </div>
 
         {/* Content Overlays */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 md:px-12 flex flex-col md:flex-row gap-8 items-end pb-8">
+        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row gap-8 items-end pb-8">
           
           {/* Movie Poster Card (Desktop) */}
           <div className="hidden md:block w-56 aspect-[2/3] rounded-xl overflow-hidden shadow-2xl border border-white/10 flex-shrink-0">
@@ -149,7 +149,7 @@ export default function MovieDetail() {
       </section>
 
       {/* Main Details Panel (Cast, Crew, More Like This) */}
-      <section className="max-w-7xl mx-auto px-4 md:px-12 py-10 grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <section className="max-w-7xl mx-auto py-10 grid grid-cols-1 lg:grid-cols-3 gap-12">
         {/* Left Column: Metadata & Crew */}
         <div className="lg:col-span-2 space-y-6">
           <div className="p-6 bg-card-bg/40 border border-white/5 rounded-xl space-y-4">

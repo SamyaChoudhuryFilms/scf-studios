@@ -98,7 +98,7 @@ export default function SeriesDetail() {
           <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/40 to-transparent"></div>
         </div>
 
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 md:px-12 flex flex-col md:flex-row gap-8 items-end pb-8">
+        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row gap-8 items-end pb-8">
           {/* Poster (Desktop) */}
           <div className="hidden md:block w-48 aspect-[2/3] rounded-xl overflow-hidden shadow-2xl border border-white/10 flex-shrink-0">
             <img src={showSeries.posterUrl || showSeries.poster} alt={showSeries.title} className="w-full h-full object-cover" />
@@ -170,7 +170,7 @@ export default function SeriesDetail() {
       </section>
 
       {/* Seasons & Episode List Section */}
-      <section className="max-w-7xl mx-auto px-4 md:px-12 py-10">
+      <section className="max-w-7xl mx-auto py-10">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between border-b border-white/5 pb-4 mb-8 gap-4">
           <div className="flex items-center gap-3">
             <ListVideo className="w-5 h-5 text-brand-accent" />
@@ -257,7 +257,7 @@ export default function SeriesDetail() {
       </section>
 
       {/* Series Production Details & Cast */}
-      <section className="max-w-7xl mx-auto px-4 md:px-12 pb-16 border-t border-white/5 pt-10">
+      <section className="max-w-7xl mx-auto pb-16 border-t border-white/5 pt-10">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Metadata & Crew */}
           <div className="lg:col-span-2 space-y-6">

@@ -18,7 +18,7 @@ export default function Downloads() {
   ];
 
   return (
-    <div className="min-h-screen bg-background text-text-primary pt-20 pb-24 px-4 md:px-12 select-text">
+    <div className="min-h-screen bg-background text-text-primary pt-20 pb-24 select-text">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="flex items-center gap-3 border-b border-white/5 pb-4 mb-6">
