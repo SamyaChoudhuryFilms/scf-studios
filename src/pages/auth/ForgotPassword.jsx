@@ -26,6 +26,9 @@ export default function ForgotPassword() {
           <Link to="/" className="text-3xl font-extrabold tracking-wider text-brand-accent mb-2 block">
             SCF STUDIOS
           </Link>
+          <h1 className="text-lg font-bold text-white uppercase tracking-wider mb-1">
+            ForgotPassword
+          </h1>
           <span className="text-[10px] text-text-muted uppercase font-bold tracking-widest block">
             Reset your password
           </span>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { RouterProvider, useRouter } from './context/RouterContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import { ContentProvider } from './context/ContentContext';
+import { ContentProvider, useContent } from './context/ContentContext';
 import { PlaybackProvider } from './context/PlaybackContext';
 import { ToastProvider } from './context/ToastContext';
 import { isFirebaseConfigured } from './lib/firebase';
@@ -132,6 +132,48 @@ function AppRoutes() {
 // Global App Scaffolder
 function AppContent() {
   const { currentPath, matchRoute } = useRouter();
+  const { movies, series } = useContent();
+
+  const getPageTitle = () => {
+    if (currentPath === '/') return 'Home';
+    if (currentPath === '/movies') return 'Movies';
+    if (currentPath === '/series') return 'Series';
+    if (currentPath === '/kids') return 'Kids';
+    if (currentPath === '/coming-soon') return 'Upcoming';
+    if (currentPath === '/my-list') return 'Wishlist';
+    if (currentPath === '/search') return 'Search';
+    if (currentPath === '/notifications') return 'Notifications';
+    if (currentPath === '/downloads') return 'Downloads';
+    if (currentPath === '/profiles') return 'Profile';
+    if (currentPath === '/login') return 'Login';
+    if (currentPath === '/register') return 'Create Account';
+    if (currentPath === '/forgot-password') return 'ForgotPassword';
+    if (currentPath === '/account') return 'Settings';
+    if (currentPath === '/plans') return 'Settings';
+    if (currentPath === '/history') return 'Settings';
+
+    const movieParams = matchRoute('/movie/:id');
+    if (movieParams?.id) {
+      const movie = movies?.find(m => m.id === movieParams.id);
+      if (movie?.isKids) return 'Kids Details';
+      return 'Movie Details';
+    }
+
+    const seriesParams = matchRoute('/series/:id');
+    if (seriesParams?.id) {
+      const show = series?.find(s => s.id === seriesParams.id);
+      if (show?.isKids) return 'Kids Details';
+      return 'Series Details';
+    }
+
+    if (matchRoute('/watch/:id')) return 'Watch';
+
+    if (currentPath.startsWith('/studio-console')) return 'Browse';
+
+    return '';
+  };
+
+  const pageTitle = getPageTitle();
 
   // Hide global layouts on full immersion pages
   const isImmersivePage =
@@ -145,6 +187,15 @@ function AppContent() {
   return (
     <div className="flex flex-col min-h-screen bg-background text-text-primary selection:bg-brand-accent/30 selection:text-white">
       {!isImmersivePage && <Header />}
+      
+      {/* Dynamic Page Title Subheader (Fixed under the top header) */}
+      {!isImmersivePage && pageTitle && (
+        <div className="fixed top-[64px] left-0 w-full z-40 bg-background/90 backdrop-blur-md border-b border-white/5 px-4 md:px-12 py-2 flex items-center shadow-md">
+          <span className="text-xs md:text-sm font-extrabold text-text-secondary uppercase tracking-wider">
+            {pageTitle}
+          </span>
+        </div>
+      )}
       
       <div className="flex-1 w-full pb-20 md:pb-0">
         <AppRoutes />

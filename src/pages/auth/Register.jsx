@@ -61,6 +61,9 @@ export default function Register() {
           <Link to="/" className="text-3xl font-extrabold tracking-wider text-brand-accent mb-2 block">
             SCF STUDIOS
           </Link>
+          <h1 className="text-lg font-bold text-white uppercase tracking-wider mb-1">
+            Create Account
+          </h1>
           <span className="text-[10px] text-text-muted uppercase font-bold tracking-widest">
             Create your account
           </span>

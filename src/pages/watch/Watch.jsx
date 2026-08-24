@@ -416,7 +416,7 @@ export default function Watch() {
             <ArrowLeft className="w-6 h-6" />
             <div className="text-left">
               <span className="text-[10px] text-text-muted uppercase font-bold tracking-wider block">
-                {mediaType === 'episode' ? mediaItem.seriesTitle : 'Back'}
+                Watch &bull; {mediaType === 'episode' ? mediaItem.seriesTitle : 'Movie'}
               </span>
               <h2 className="text-sm font-bold text-white truncate max-w-sm sm:max-w-md">
                 {mediaType === 'episode' ? `S${mediaItem.seasonNum}:E${mediaItem.episodeNumber} - ${mediaItem.title}` : mediaItem.title}
