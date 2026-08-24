@@ -161,8 +161,8 @@ function AppContent() {
       
       {/* Dynamic Page Title Subheader (Fixed under the top header) */}
       {!isImmersivePage && pageTitle && (
-        <div className="fixed top-[64px] left-0 w-full z-40 bg-transparent px-4 md:px-12 py-2 flex items-center">
-          <span className="text-xs md:text-sm font-extrabold text-white uppercase tracking-wider">
+        <div className="fixed top-0 left-0 w-full pt-[74px] pb-5 px-4 md:px-12 z-30 bg-gradient-to-b from-black/95 via-black/60 to-transparent flex items-center pointer-events-none">
+          <span className="text-sm md:text-base font-extrabold text-white uppercase tracking-widest drop-shadow-md">
             {pageTitle}
           </span>
         </div>
