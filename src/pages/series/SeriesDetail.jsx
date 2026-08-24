@@ -129,7 +129,7 @@ export default function SeriesDetail() {
               )}
             </div>
 
-            <h1 className="text-3xl md:text-5xl font-extrabold uppercase mb-4 tracking-tight">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold uppercase mb-4 tracking-tight">
               {showSeries.title}
             </h1>
 

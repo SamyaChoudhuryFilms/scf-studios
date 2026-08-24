@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { ContentProvider } from './context/ContentContext';
 import { PlaybackProvider } from './context/PlaybackContext';
 import { ToastProvider } from './context/ToastContext';
+import { isFirebaseConfigured } from './lib/firebase';
 
 // Layout Elements
 import Header from './components/layout/Header';
@@ -29,6 +30,8 @@ import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import ComingSoon from './pages/coming-soon/ComingSoon';
+import Notifications from './pages/home/Notifications';
+import Downloads from './pages/home/Downloads';
 
 // Fallback 404 Component
 function NotFound() {
@@ -57,7 +60,7 @@ function AppRoutes() {
   // Authentication locks: Only protect watch and account routes, allowing guest browsing on home, movies, series, search, etc.
   const isAuthRoute = ['/login', '/register', '/forgot-password'].includes(currentPath);
   const isAdminRoute = currentPath.startsWith('/studio-console');
-  const isProtectedRoute = currentPath.startsWith('/watch') || ['/my-list', '/history', '/profiles', '/account', '/plans'].includes(currentPath);
+  const isProtectedRoute = currentPath.startsWith('/watch') || ['/my-list', '/history', '/profiles', '/account', '/plans', '/notifications', '/downloads'].includes(currentPath);
   
   if (!currentUser && isProtectedRoute && !isAuthRoute && !isAdminRoute) {
     // Redirect standard guest users trying to access video playback or accounts to Login
@@ -93,6 +96,10 @@ function AppRoutes() {
       return <Kids />;
     case '/coming-soon':
       return <ComingSoon />;
+    case '/notifications':
+      return <Notifications />;
+    case '/downloads':
+      return <Downloads />;
     case '/login':
       return <Login />;
     case '/register':
@@ -139,7 +146,7 @@ function AppContent() {
     <div className="flex flex-col min-h-screen bg-background text-text-primary selection:bg-brand-accent/30 selection:text-white">
       {!isImmersivePage && <Header />}
       
-      <div className="flex-1 w-full">
+      <div className="flex-1 w-full pb-20 md:pb-0">
         <AppRoutes />
       </div>
 
@@ -150,6 +157,29 @@ function AppContent() {
 }
 
 export default function App() {
+  if (!isFirebaseConfigured) {
+    return (
+      <div className="min-h-screen bg-background text-text-primary flex flex-col items-center justify-center p-6 text-center select-text">
+        <div className="max-w-md bg-card-bg border border-white/10 p-8 rounded-xl shadow-2xl">
+          <img src="/logo-square.jpg" className="w-16 h-16 mx-auto rounded-xl mb-4 border border-white/10" alt="SCF Studios" />
+          <h1 className="text-xl font-extrabold text-white mb-2 uppercase tracking-wide">Firebase Config Missing</h1>
+          <p className="text-xs text-text-secondary leading-relaxed mb-6">
+            The Firebase database connection is not configured. If you deployed to Vercel, please add your Firebase credentials to the Environment Variables settings and redeploy.
+          </p>
+          <div className="bg-black/40 border border-white/5 rounded-lg p-4 text-left text-[10px] font-mono text-emerald-400 space-y-1 overflow-x-auto">
+            <div>VITE_FIREBASE_API_KEY="..."</div>
+            <div>VITE_FIREBASE_AUTH_DOMAIN="..."</div>
+            <div>VITE_FIREBASE_PROJECT_ID="..."</div>
+            <div>VITE_FIREBASE_STORAGE_BUCKET="..."</div>
+            <div>VITE_FIREBASE_MESSAGING_SENDER_ID="..."</div>
+            <div>VITE_FIREBASE_APP_ID="..."</div>
+            <div>VITE_AUTHORIZED_ADMINS="..."</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <RouterProvider>
       <AuthProvider>

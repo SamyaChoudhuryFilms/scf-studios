@@ -14,12 +14,27 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+let app = null;
+let auth = null;
+let db = null;
+let storage = null;
+let isFirebaseConfigured = false;
 
-// Initialize Firebase services
-const auth = getAuth(app);
-const db = getFirestore(app);
-const storage = getStorage(app);
+// Simple validation to check if config is provided and not a placeholder
+const hasValidConfig = firebaseConfig.apiKey && 
+                       firebaseConfig.apiKey !== "" && 
+                       !firebaseConfig.apiKey.startsWith("YOUR_");
 
-export { app, auth, db, storage };
+if (hasValidConfig) {
+  try {
+    app = initializeApp(firebaseConfig);
+    auth = getAuth(app);
+    db = getFirestore(app);
+    storage = getStorage(app);
+    isFirebaseConfigured = true;
+  } catch (error) {
+    console.error("Firebase failed to initialize:", error);
+  }
+}
+
+export { app, auth, db, storage, isFirebaseConfigured };

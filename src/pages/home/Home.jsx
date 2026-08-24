@@ -248,7 +248,7 @@ export default function Home() {
   return (
     <div className="pb-16 min-h-screen bg-background">
       {/* Cinematic Hero Section */}
-      <section className="relative w-full h-[65vh] md:h-[80vh] overflow-hidden flex items-center group/hero">
+      <section className="relative w-full min-h-[50vh] sm:h-[65vh] md:h-[80vh] py-16 sm:py-24 overflow-hidden flex items-center group/hero">
         {/* Widescreen cover image with transitions */}
         <div className="absolute inset-0 z-0">
           <img
@@ -283,7 +283,7 @@ export default function Home() {
           </div>
 
           {/* Heading */}
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-4 uppercase leading-none drop-shadow-lg">
+          <h1 className="text-2xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-4 uppercase leading-none drop-shadow-lg">
             {featured.title}
           </h1>
 

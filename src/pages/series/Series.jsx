@@ -130,7 +130,7 @@ export default function Series() {
               <span className="text-xs font-semibold text-text-secondary">{featured.seasons?.length} Seasons</span>
             </div>
 
-            <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3 uppercase leading-none drop-shadow-md">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-white mb-3 uppercase leading-none drop-shadow-md">
               {featured.title}
             </h1>
 

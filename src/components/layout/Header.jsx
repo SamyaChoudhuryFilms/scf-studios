@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useRouter, Link } from '../../context/RouterContext';
 import { useAuth } from '../../context/AuthContext';
 import { useContent } from '../../context/ContentContext';
-import { Search, Bell, ChevronDown, LogOut, LayoutGrid, Upload, Shield, Heart, History, User, Tv, Film } from 'lucide-react';
+import { Search, Bell, ChevronDown, LogOut, LayoutGrid, Upload, Shield, Heart, History, User, Tv, Film, Menu, X } from 'lucide-react';
 
 export default function Header() {
   const { currentPath, navigate } = useRouter();
@@ -14,6 +14,7 @@ export default function Header() {
   const [suggestions, setSuggestions] = useState([]);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [notifications, setNotifications] = useState([
     { id: 1, title: "New Release", message: "Calcutta Express is coming soon. Check out the details!", time: "2 hours ago", unread: true },
@@ -106,7 +107,17 @@ export default function Header() {
       scrolled ? 'bg-background/90 backdrop-blur-md border-b border-white/5' : 'bg-gradient-to-b from-background/80 to-transparent'
     }`}>
       {/* Brand Wordmark Logo */}
-      <div className="flex items-center gap-8">
+      <div className="flex items-center gap-3 md:gap-8">
+        {activeProfile && (
+          <button
+            onClick={() => setMobileMenuOpen(true)}
+            className="md:hidden text-text-secondary hover:text-white p-1 transition-colors cursor-pointer"
+            title="Open Menu"
+          >
+            <Menu className="w-6.5 h-6.5" />
+          </button>
+        )}
+
         <Link to="/" className="text-2xl font-extrabold tracking-wider text-brand-accent hover:opacity-90">
           SCF STUDIOS
         </Link>
@@ -132,8 +143,8 @@ export default function Header() {
 
       {/* Header Actions */}
       <div className="flex items-center gap-4">
-        {/* Search Input bar */}
-        <form onSubmit={handleSearchSubmit} className="relative hidden sm:block" ref={searchRef}>
+        {/* Search Input bar (Desktop only) */}
+        <form onSubmit={handleSearchSubmit} className="relative hidden md:block" ref={searchRef}>
           <div className="flex items-center bg-card-bg/60 border border-white/10 rounded-full px-3 py-1.5 focus-within:border-brand-accent transition-all duration-200 w-44 md:w-64">
             <Search className="w-4 h-4 text-text-muted mr-2" />
             <input
@@ -178,13 +189,8 @@ export default function Header() {
           )}
         </form>
 
-        {/* Mobile Search Icon */}
-        <Link to="/search" className="sm:hidden text-text-secondary hover:text-text-primary">
-          <Search className="w-5 h-5" />
-        </Link>
-
-        {/* Notifications Icon & Dropdown */}
-        <div className="relative" ref={notificationRef}>
+        {/* Notifications Icon & Dropdown (Desktop only) */}
+        <div className="relative hidden md:block" ref={notificationRef}>
           <button
             onClick={() => {
               setShowNotifications(!showNotifications);
@@ -337,6 +343,55 @@ export default function Header() {
             Sign In
           </Link>
         )}
+      </div>
+
+      {/* Mobile Hamburger Drawer Menu */}
+      {mobileMenuOpen && (
+        <div 
+          className="fixed inset-0 z-50 md:hidden bg-black/60 backdrop-blur-sm animate-fade-in"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+      <div
+        className={`fixed top-0 left-0 h-full w-[280px] z-55 bg-bg-secondary border-r border-white/5 shadow-2xl transition-transform duration-300 md:hidden flex flex-col ${
+          mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div className="p-5 border-b border-white/5 flex items-center justify-between">
+          <span className="text-lg font-extrabold tracking-wider text-brand-accent">
+            SCF STUDIOS
+          </span>
+          <button
+            onClick={() => setMobileMenuOpen(false)}
+            className="p-1 hover:bg-white/5 rounded-full text-text-secondary hover:text-white transition-colors cursor-pointer"
+            title="Close Menu"
+          >
+            <X className="w-5.5 h-5.5" />
+          </button>
+        </div>
+
+        <nav className="flex flex-col p-6 space-y-4">
+          {[
+            { to: '/movies', label: 'Movies' },
+            { to: '/series', label: 'Series' },
+            { to: '/kids', label: 'Kids' },
+            { to: '/coming-soon', label: 'Upcoming' },
+          ].map(link => {
+            const isActive = currentPath === link.to;
+            return (
+              <Link
+                key={link.to}
+                to={link.to}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`text-base font-bold tracking-wide py-2 border-b border-white/[0.02] flex items-center transition-colors ${
+                  isActive ? 'text-brand-accent font-bold' : 'text-text-secondary hover:text-text-primary'
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+        </nav>
       </div>
     </header>
   );

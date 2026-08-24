@@ -92,7 +92,7 @@ export default function Kids() {
               <Badge variant="default" className="bg-white/10 text-white font-bold">{featured.rating || 'G'}</Badge>
             </div>
 
-            <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3 uppercase leading-none drop-shadow-md">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-white mb-3 uppercase leading-none drop-shadow-md">
               {featured.title}
             </h1>
 
@@ -147,7 +147,7 @@ export default function Kids() {
       )}
 
       {/* Rails Content List */}
-      <section className="px-4 md:px-12 py-10 max-w-7xl mx-auto space-y-6">
+      <section className="px-4 md:px-12 py-10 space-y-6">
         {kidsRails.map(rail => {
           const railItems = rail.filter(kidsContent);
           if (railItems.length === 0) return null;

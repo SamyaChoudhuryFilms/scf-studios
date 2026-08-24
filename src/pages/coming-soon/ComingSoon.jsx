@@ -83,7 +83,7 @@ export default function ComingSoon() {
               )}
             </div>
 
-            <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3 uppercase leading-none drop-shadow-md">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-white mb-3 uppercase leading-none drop-shadow-md">
               {featured.title}
             </h1>
 
