@@ -19,8 +19,7 @@ export default function MobileNav() {
 
   return (
     <div 
-      className="md:hidden fixed bottom-0 left-0 w-full z-40 bg-bg-secondary/95 backdrop-blur-lg border-t border-white/5 py-2.5 px-6 flex items-center justify-between shadow-lg"
-      style={{ paddingBottom: 'calc(10px + env(safe-area-inset-bottom, 0px))' }}
+      className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[380px] z-40 bg-black/60 backdrop-blur-xl border border-white/10 py-3.5 px-6 flex items-center justify-between shadow-2xl rounded-full"
     >
       {navItems.map(item => {
         const isActive = currentPath === item.to || (item.to !== '/' && currentPath.startsWith(item.to));
@@ -30,16 +29,16 @@ export default function MobileNav() {
           <Link
             key={item.to}
             to={item.to}
-            className="flex flex-col items-center gap-1 text-[10px] tracking-wide w-16"
+            className="flex items-center justify-center p-2 rounded-full transition-transform active:scale-90"
+            aria-label={item.label}
+            title={item.label}
           >
-            <Icon className={`w-5 h-5 transition-all duration-200 ${
-              isActive ? 'text-brand-accent scale-110' : 'text-text-secondary hover:text-text-primary'
-            }`} />
-            <span className={`text-[9px] font-semibold transition-colors duration-200 ${
-              isActive ? 'text-brand-accent font-bold' : 'text-text-muted'
-            }`}>
-              {item.label}
-            </span>
+            <Icon 
+              className={`w-5.5 h-5.5 transition-all duration-200 ${
+                isActive ? 'text-brand-accent scale-110 drop-shadow-[0_0_8px_rgba(229,9,20,0.4)]' : 'text-text-secondary hover:text-text-primary'
+              }`}
+              fill={isActive ? 'currentColor' : 'none'}
+            />
           </Link>
         );
       })}
