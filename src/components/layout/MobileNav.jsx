@@ -19,7 +19,7 @@ export default function MobileNav() {
 
   return (
     <div 
-      className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[380px] z-40 bg-black/60 backdrop-blur-xl border border-white/10 py-3.5 px-6 flex items-center justify-between shadow-2xl rounded-full"
+      className="md:hidden fixed bottom-3 left-1/2 -translate-x-1/2 w-[90%] max-w-[380px] z-40 bg-black/60 backdrop-blur-xl border border-white/10 py-3.5 px-6 flex items-center justify-between shadow-2xl rounded-full"
     >
       {navItems.map(item => {
         const isActive = currentPath === item.to || (item.to !== '/' && currentPath.startsWith(item.to));
