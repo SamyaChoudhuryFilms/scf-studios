@@ -364,12 +364,12 @@ export default function Header() {
     {/* Mobile Hamburger Drawer Menu - Placed outside <header> to avoid parent backdrop-filter rendering bugs */}
     {mobileMenuOpen && (
       <div 
-        className="fixed inset-0 z-[100] md:hidden bg-black/65 backdrop-blur-sm animate-fade-in"
+        className="fixed inset-0 z-[100] md:hidden bg-black/75 animate-fade-in"
         onClick={() => setMobileMenuOpen(false)}
       />
     )}
     <div
-      className={`fixed top-0 left-0 h-full w-[280px] z-[110] bg-[#0D0E12] border-r border-white/5 shadow-2xl transition-transform duration-300 md:hidden flex flex-col ${
+      className={`fixed top-0 left-0 h-full w-[280px] z-[110] bg-bg-secondary border-r border-white/5 shadow-2xl transition-transform duration-300 md:hidden flex flex-col ${
         mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
       }`}
     >
