@@ -41,7 +41,7 @@ export default function MobileNav() {
 
   return (
     <div 
-      className={`md:hidden fixed bottom-1 left-1/2 -translate-x-1/2 z-40 bg-black/15 backdrop-blur-[10px] border border-white/10 shadow-2xl rounded-full transition-all duration-300 flex items-center justify-between ${
+      className={`md:hidden fixed bottom-2 left-1/2 -translate-x-1/2 z-40 bg-black/15 backdrop-blur-[10px] border border-white/10 shadow-2xl rounded-full transition-all duration-300 flex items-center justify-between ${
         scrollingDown 
           ? 'py-1 px-3.5 w-[72%] max-w-[240px]' 
           : 'py-1.5 px-4 w-[84%] max-w-[300px]'
