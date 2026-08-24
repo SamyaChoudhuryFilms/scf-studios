@@ -198,7 +198,7 @@ export default function Movies() {
       )}
 
       {/* Advanced Filter Bar */}
-      <section className="relative z-10 px-4 md:px-12 py-4 md:py-6 bg-bg-secondary/60 border-y border-white/10 backdrop-blur-md">
+      <section className="relative z-10 px-4 md:px-12 py-4 md:py-6 bg-bg-secondary/50 border-y border-white/10 backdrop-blur-md">
         <div className="max-w-7xl mx-auto">
           {/* Mobile Filter Toggle Button */}
           <div className="md:hidden flex justify-start">

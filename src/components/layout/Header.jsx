@@ -176,7 +176,7 @@ export default function Header() {
 
           {/* Quick Suggestions overlay */}
           {showSuggestions && suggestions.length > 0 && (
-            <div className="absolute right-0 mt-2 w-72 bg-card-bg/90 backdrop-blur-md border border-white/10 rounded-lg shadow-2xl p-2 z-50">
+            <div className="absolute right-0 mt-2 w-72 bg-card-bg/50 backdrop-blur-md border border-white/10 rounded-lg shadow-2xl p-2 z-50">
               <div className="text-[10px] uppercase font-bold text-text-muted px-3 py-1 border-b border-white/5">
                 Suggestions
               </div>
@@ -221,7 +221,7 @@ export default function Header() {
           </button>
 
           {showNotifications && (
-            <div className="absolute right-0 mt-3 w-80 bg-card-bg/90 backdrop-blur-md border border-white/10 rounded-lg shadow-2xl overflow-hidden z-50 animate-slide-in">
+            <div className="absolute right-0 mt-3 w-80 bg-card-bg/50 backdrop-blur-md border border-white/10 rounded-lg shadow-2xl overflow-hidden z-50 animate-slide-in">
               <div className="p-3 border-b border-white/5 flex items-center justify-between">
                 <span className="text-xs font-bold uppercase tracking-wider text-white">Notifications</span>
                 <button
@@ -269,7 +269,7 @@ export default function Header() {
             </button>
 
             {profileDropdownOpen && (
-              <div className="absolute right-0 mt-3 w-56 bg-card-bg/90 backdrop-blur-md border border-white/10 rounded-lg shadow-2xl overflow-hidden z-50">
+              <div className="absolute right-0 mt-3 w-56 bg-card-bg/50 backdrop-blur-md border border-white/10 rounded-lg shadow-2xl overflow-hidden z-50">
                 {/* Switch Profiles Section */}
                 <div className="p-2 border-b border-white/5">
                   <div className="text-[10px] uppercase font-bold text-text-muted px-3 py-1">
