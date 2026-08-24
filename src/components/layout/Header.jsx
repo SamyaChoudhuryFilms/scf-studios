@@ -156,7 +156,7 @@ export default function Header() {
                 setShowSuggestions(true);
               }}
               onFocus={() => setShowSuggestions(true)}
-              className="bg-transparent text-xs text-text-primary outline-none w-full"
+              className="bg-transparent text-base md:text-xs text-text-primary outline-none w-full"
             />
           </div>
 

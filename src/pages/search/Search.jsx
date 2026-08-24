@@ -88,7 +88,7 @@ export default function Search() {
             placeholder="Search movies, web series, genres..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="bg-transparent text-sm text-text-primary outline-none w-full placeholder-text-muted"
+            className="bg-transparent text-base md:text-sm text-text-primary outline-none w-full placeholder-text-muted"
             autoFocus
           />
           {query && (
