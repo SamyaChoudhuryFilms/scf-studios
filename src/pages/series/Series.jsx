@@ -3,7 +3,7 @@ import { useContent } from '../../context/ContentContext';
 import { useRouter } from '../../context/RouterContext';
 import SeriesCard from '../../components/cards/SeriesCard';
 import Badge from '../../components/common/Badge';
-import { Play, Info, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Play, Info, ChevronLeft, ChevronRight, SlidersHorizontal, ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function Series() {
   const { series } = useContent();
@@ -14,6 +14,7 @@ export default function Series() {
   const [selectedLanguage, setSelectedLanguage] = useState('All');
   const [selectedStatus, setSelectedStatus] = useState('All');
   const [sortBy, setSortBy] = useState('newest');
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   const [featuredIndex, setFeaturedIndex] = useState(0);
 
@@ -192,57 +193,76 @@ export default function Series() {
       )}
 
       {/* Filter Bar */}
-      <section className="relative z-10 px-4 md:px-12 py-6 bg-bg-secondary/40 border-y border-white/5 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="grid grid-cols-3 gap-4 text-xs font-semibold text-text-secondary w-full md:w-auto">
-            {/* Genre */}
-            <div className="flex flex-col gap-1.5 w-full">
-              <span className="text-[10px] text-text-muted uppercase tracking-wider font-bold">Genre</span>
-              <select
-                value={selectedGenre}
-                onChange={(e) => setSelectedGenre(e.target.value)}
-                className="bg-card-bg border border-white/10 rounded-lg px-3 py-2 outline-none focus:border-brand-accent text-white w-full"
-              >
-                {genres.map(g => <option key={g} value={g}>{g}</option>)}
-              </select>
-            </div>
-
-            {/* Language */}
-            <div className="flex flex-col gap-1.5 w-full">
-              <span className="text-[10px] text-text-muted uppercase tracking-wider font-bold">Language</span>
-              <select
-                value={selectedLanguage}
-                onChange={(e) => setSelectedLanguage(e.target.value)}
-                className="bg-card-bg border border-white/10 rounded-lg px-3 py-2 outline-none focus:border-brand-accent text-white w-full"
-              >
-                {languages.map(l => <option key={l} value={l}>{l}</option>)}
-              </select>
-            </div>
-
-            {/* Status */}
-            <div className="flex flex-col gap-1.5 w-full">
-              <span className="text-[10px] text-text-muted uppercase tracking-wider font-bold">Status</span>
-              <select
-                value={selectedStatus}
-                onChange={(e) => setSelectedStatus(e.target.value)}
-                className="bg-card-bg border border-white/10 rounded-lg px-3 py-2 outline-none focus:border-brand-accent text-white w-full"
-              >
-                {statuses.map(s => <option key={s} value={s}>{s}</option>)}
-              </select>
-            </div>
+      <section className="relative z-10 px-4 md:px-12 py-4 md:py-6 bg-bg-secondary/40 border-y border-white/5 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto">
+          {/* Mobile Filter Toggle Button */}
+          <div className="md:hidden flex justify-start">
+            <button
+              onClick={() => setMobileFiltersOpen(!mobileFiltersOpen)}
+              className="flex items-center gap-2 px-4 py-2 bg-card-bg/60 border border-white/10 text-white rounded-lg text-[11px] font-bold uppercase transition-all active:scale-95 cursor-pointer"
+            >
+              <SlidersHorizontal className="w-3.5 h-3.5 text-brand-accent" />
+              <span>FILTER</span>
+              {mobileFiltersOpen ? (
+                <ChevronUp className="w-3.5 h-3.5 ml-0.5 text-text-secondary" />
+              ) : (
+                <ChevronDown className="w-3.5 h-3.5 ml-0.5 text-text-secondary" />
+              )}
+            </button>
           </div>
 
-          {/* Sort */}
-          <div className="flex flex-col gap-1.5 text-xs w-full md:w-48">
-            <span className="text-[10px] text-text-muted uppercase tracking-wider font-bold">Sort By</span>
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="bg-card-bg border border-white/10 rounded-lg px-3 py-2 outline-none focus:border-brand-accent text-white w-full"
-            >
-              <option value="newest">Release: Newest</option>
-              <option value="title">Title: A-Z</option>
-            </select>
+          {/* Filters content: hidden on mobile unless open, always flex on desktop */}
+          <div className={`${mobileFiltersOpen ? 'flex animate-fade-in' : 'hidden'} md:flex flex-col md:flex-row md:items-center justify-between gap-6 mt-4 md:mt-0`}>
+            <div className="grid grid-cols-3 gap-4 text-xs font-semibold text-text-secondary w-full md:w-auto">
+              {/* Genre */}
+              <div className="flex flex-col gap-1.5 w-full">
+                <span className="text-[10px] text-text-muted uppercase tracking-wider font-bold">Genre</span>
+                <select
+                  value={selectedGenre}
+                  onChange={(e) => setSelectedGenre(e.target.value)}
+                  className="bg-card-bg border border-white/10 rounded-lg px-3 py-2 outline-none focus:border-brand-accent text-white w-full"
+                >
+                  {genres.map(g => <option key={g} value={g}>{g}</option>)}
+                </select>
+              </div>
+
+              {/* Language */}
+              <div className="flex flex-col gap-1.5 w-full">
+                <span className="text-[10px] text-text-muted uppercase tracking-wider font-bold">Language</span>
+                <select
+                  value={selectedLanguage}
+                  onChange={(e) => setSelectedLanguage(e.target.value)}
+                  className="bg-card-bg border border-white/10 rounded-lg px-3 py-2 outline-none focus:border-brand-accent text-white w-full"
+                >
+                  {languages.map(l => <option key={l} value={l}>{l}</option>)}
+                </select>
+              </div>
+
+              {/* Status */}
+              <div className="flex flex-col gap-1.5 w-full">
+                <span className="text-[10px] text-text-muted uppercase tracking-wider font-bold">Status</span>
+                <select
+                  value={selectedStatus}
+                  onChange={(e) => setSelectedStatus(e.target.value)}
+                  className="bg-card-bg border border-white/10 rounded-lg px-3 py-2 outline-none focus:border-brand-accent text-white w-full"
+                >
+                  {statuses.map(s => <option key={s} value={s}>{s}</option>)}
+                </select>
+              </div>
+            </div>
+
+            {/* Sort */}
+            <div className="flex flex-col gap-1.5 text-xs w-full md:w-48">
+              <span className="text-[10px] text-text-muted uppercase tracking-wider font-bold">Sort By</span>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="bg-card-bg border border-white/10 rounded-lg px-3 py-2 outline-none focus:border-brand-accent text-white w-full"
+              >
+                <option value="newest">Release: Newest</option>
+                <option value="title">Title: A-Z</option>
+              </select>
+            </div>
           </div>
         </div>
       </section>
