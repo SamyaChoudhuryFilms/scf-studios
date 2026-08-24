@@ -55,6 +55,18 @@ export default function Header() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   // Handle Search suggestions
   useEffect(() => {
     if (searchQuery.trim().length < 2) {
@@ -103,7 +115,9 @@ export default function Header() {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 px-4 md:px-12 py-4 flex items-center justify-between ${
+    <header className={`fixed top-0 left-0 w-full transition-all duration-300 px-4 md:px-12 py-4 flex items-center justify-between ${
+      mobileMenuOpen ? 'z-[150]' : 'z-50'
+    } ${
       scrolled ? 'bg-background/90 backdrop-blur-md border-b border-white/5' : 'bg-gradient-to-b from-background/80 to-transparent'
     }`}>
       {/* Brand Wordmark Logo */}
@@ -353,7 +367,7 @@ export default function Header() {
         />
       )}
       <div
-        className={`fixed top-0 left-0 h-full w-[280px] z-[110] bg-bg-secondary border-r border-white/5 shadow-2xl transition-transform duration-300 md:hidden flex flex-col ${
+        className={`fixed top-0 left-0 h-full w-[280px] z-[110] bg-[#0D0E12] border-r border-white/5 shadow-2xl transition-transform duration-300 md:hidden flex flex-col ${
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
