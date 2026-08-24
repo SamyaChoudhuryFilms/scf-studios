@@ -135,40 +135,11 @@ function AppContent() {
   const { movies, series } = useContent();
 
   const getPageTitle = () => {
-    if (currentPath === '/') return 'Home';
+    // Only show global subheader for pages that do not have local headers
     if (currentPath === '/movies') return 'Movies';
     if (currentPath === '/series') return 'Series';
     if (currentPath === '/kids') return 'Kids';
     if (currentPath === '/coming-soon') return 'Upcoming';
-    if (currentPath === '/my-list') return 'Wishlist';
-    if (currentPath === '/search') return 'Search';
-    if (currentPath === '/notifications') return 'Notifications';
-    if (currentPath === '/downloads') return 'Downloads';
-    if (currentPath === '/profiles') return 'Profile';
-    if (currentPath === '/login') return 'Login';
-    if (currentPath === '/register') return 'Create Account';
-    if (currentPath === '/forgot-password') return 'ForgotPassword';
-    if (currentPath === '/account') return 'Settings';
-    if (currentPath === '/plans') return 'Settings';
-    if (currentPath === '/history') return 'Settings';
-
-    const movieParams = matchRoute('/movie/:id');
-    if (movieParams?.id) {
-      const movie = movies?.find(m => m.id === movieParams.id);
-      if (movie?.isKids) return 'Kids Details';
-      return 'Movie Details';
-    }
-
-    const seriesParams = matchRoute('/series/:id');
-    if (seriesParams?.id) {
-      const show = series?.find(s => s.id === seriesParams.id);
-      if (show?.isKids) return 'Kids Details';
-      return 'Series Details';
-    }
-
-    if (matchRoute('/watch/:id')) return 'Watch';
-
-    if (currentPath.startsWith('/studio-console')) return 'Browse';
 
     return '';
   };
