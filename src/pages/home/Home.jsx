@@ -262,7 +262,7 @@ export default function Home() {
         </div>
 
         {/* Hero Content Overlay */}
-        <div className="relative z-10 max-w-4xl mt-16 md:mt-24 select-text">
+        <div className="relative z-10 w-full max-w-4xl px-4 md:px-12 mt-16 md:mt-24 select-text">
           {/* Brand Signature Watermark Logo */}
           <div className="flex items-center gap-2 mb-4 opacity-90 select-none">
             <img src="/logo-square.jpg" className="h-8 object-contain invert brightness-125 rounded-md" alt="SCF STUDIOS" />
@@ -292,76 +292,80 @@ export default function Home() {
             {featured.description}
           </p>
 
-          {/* Languages */}
-          <div className="text-xs font-semibold text-text-muted mb-6">
-            Language: <span className="text-text-secondary">{featured.language}</span>
+          {/* Languages & Sound Control */}
+          <div className="flex items-center gap-4 mb-6">
+            <div className="text-xs font-semibold text-text-muted">
+              Language: <span className="text-text-secondary">{featured.language}</span>
+            </div>
+            
+            {/* Mute/Unmute toggle inline with language */}
+            <button
+              onClick={() => setMuted(!muted)}
+              className="w-7 h-7 rounded-full bg-white/10 border border-white/10 text-white flex items-center justify-center hover:bg-white/15 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              title={muted ? "Unmute" : "Mute"}
+            >
+              {muted ? <VolumeX className="w-3.5 h-3.5 text-text-secondary" /> : <Volume2 className="w-3.5 h-3.5" />}
+            </button>
           </div>
 
           {/* Interactive Hero Controls */}
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-row items-center gap-2 sm:gap-3 w-full mb-6">
             <button
               onClick={handleHeroPlay}
-              className="flex items-center gap-2 px-6 py-3 bg-brand-accent hover:bg-brand-accent-hover text-white font-bold rounded-lg shadow-lg shadow-brand-accent/20 transition-all hover:scale-105 active:scale-95 text-sm"
+              className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 bg-brand-accent hover:bg-brand-accent-hover text-white font-bold rounded-lg shadow-lg shadow-brand-accent/20 transition-all hover:scale-105 active:scale-95 text-[11px] sm:text-xs md:text-sm whitespace-nowrap"
             >
-              <Play className="w-4 h-4 fill-white" />
+              <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-white" />
               Watch Now
             </button>
 
             <button
               onClick={handleHeroToggleList}
-              className="flex items-center gap-2 px-5 py-3 bg-white/10 hover:bg-white/15 border border-white/10 text-white font-bold rounded-lg transition-all hover:scale-105 active:scale-95 text-sm"
+              className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-white/10 hover:bg-white/15 border border-white/10 text-white font-bold rounded-lg transition-all hover:scale-105 active:scale-95 text-[11px] sm:text-xs md:text-sm whitespace-nowrap"
             >
-              {isAdded ? <Check className="w-4 h-4 text-emerald-400" /> : <Plus className="w-4 h-4" />}
+              {isAdded ? <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400" /> : <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
               My List
             </button>
 
             <button
               onClick={handleHeroInfo}
-              className="flex items-center gap-2 px-5 py-3 bg-white/10 hover:bg-white/15 border border-white/10 text-white font-bold rounded-lg transition-all hover:scale-105 active:scale-95 text-sm"
+              className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-white/10 hover:bg-white/15 border border-white/10 text-white font-bold rounded-lg transition-all hover:scale-105 active:scale-95 text-[11px] sm:text-xs md:text-sm whitespace-nowrap"
             >
-              <Info className="w-4 h-4" />
+              <Info className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               More Info
             </button>
           </div>
-        </div>
 
-        {/* Indicators at bottom right */}
-        <div className="absolute bottom-10 right-4 md:right-12 z-10 flex items-center gap-3">
-          {/* Mute/Unmute toggle (aesthetic details) */}
-          <button
-            onClick={() => setMuted(!muted)}
-            className="w-9 h-9 rounded-full bg-black/60 border border-white/10 text-white flex items-center justify-center hover:bg-black/80 hover:scale-105 active:scale-95 transition-all"
-          >
-            {muted ? <VolumeX className="w-4 h-4 text-text-secondary" /> : <Volume2 className="w-4 h-4" />}
-          </button>
-          
-          <div className="flex gap-1.5">
-            {featuredSlides.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setFeaturedIndex(idx)}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  featuredIndex === idx ? 'w-6 bg-brand-accent' : 'w-1.5 bg-white/20 hover:bg-white/40'
-                }`}
-              ></button>
-            ))}
+          {/* Scroller Dots (Centered below controls) */}
+          <div className="flex justify-center items-center w-full mt-6">
+            <div className="flex gap-1.5">
+              {featuredSlides.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setFeaturedIndex(idx)}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    featuredIndex === idx ? 'w-6 bg-brand-accent' : 'w-1.5 bg-white/20 hover:bg-white/40'
+                  }`}
+                  aria-label={`Go to slide ${idx + 1}`}
+                ></button>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Left/Right Arrow Buttons (Scrollers) */}
+        {/* Left/Right Arrow Buttons (Scrollers) - Always visible on sides */}
         {featuredSlides.length > 1 && (
           <>
             <button
               onClick={handlePrevSlide}
-              className="absolute left-4 md:left-6 z-20 w-10 h-10 rounded-full bg-black/50 border border-white/10 text-white flex items-center justify-center opacity-0 group-hover/hero:opacity-100 hover:bg-black/80 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
+              className="absolute left-2 sm:left-6 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/45 border border-white/10 text-white flex items-center justify-center hover:bg-black/85 hover:scale-105 active:scale-95 transition-all cursor-pointer"
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
             <button
               onClick={handleNextSlide}
-              className="absolute right-4 md:right-6 z-20 w-10 h-10 rounded-full bg-black/50 border border-white/10 text-white flex items-center justify-center opacity-0 group-hover/hero:opacity-100 hover:bg-black/80 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
+              className="absolute right-2 sm:right-6 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/45 border border-white/10 text-white flex items-center justify-center hover:bg-black/85 hover:scale-105 active:scale-95 transition-all cursor-pointer"
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
           </>
         )}
