@@ -52,10 +52,10 @@ export default function MovieCard({ movie, fullWidth }) {
           {movie.isPremium && <Badge variant="premium" className="text-[7px] px-1 py-0">Premium</Badge>}
         </div>
 
-        {/* Bottom overlay info bar on mobile (No hover required) */}
-        <div className="absolute bottom-0 left-0 w-full p-2 bg-gradient-to-t from-background/90 via-background/70 to-transparent flex flex-col sm:hidden">
-          <h4 className="text-[10px] font-bold truncate text-text-primary">{movie.title}</h4>
-          <p className="text-[8px] text-text-secondary">
+        {/* Bottom overlay info bar - Always visible inside poster */}
+        <div className="absolute bottom-0 left-0 w-full p-2.5 bg-gradient-to-t from-black/95 via-black/55 to-transparent flex flex-col z-10 pointer-events-none">
+          <h4 className="text-[10px] sm:text-[11px] font-bold truncate text-white drop-shadow-md leading-tight">{movie.title}</h4>
+          <p className="text-[8px] sm:text-[9px] text-white/70 mt-0.5 leading-none">
             {movie.year || (movie.releaseDate ? movie.releaseDate.substring(0, 4) : '2026')} &middot; {movie.genre}
           </p>
         </div>
@@ -103,18 +103,6 @@ export default function MovieCard({ movie, fullWidth }) {
               <Info className="w-3.5 h-3.5" />
             </button>
           </div>
-        </div>
-      </div>
-
-      {/* Info Block under the card */}
-      <div className="px-0.5 select-text">
-        <h4 className="text-[10px] sm:text-[11px] font-bold truncate text-text-primary hover:text-brand-accent transition-colors" onClick={() => navigate(`/movie/${movie.id}`)}>
-          {movie.title}
-        </h4>
-        <div className="flex items-center gap-1.5 text-[8px] sm:text-[9px] text-text-muted mt-0.5">
-          <span>{movie.year || (movie.releaseDate ? movie.releaseDate.substring(0, 4) : '2026')}</span>
-          <span>&middot;</span>
-          <span>{movie.genre}</span>
         </div>
       </div>
     </div>
