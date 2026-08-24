@@ -115,7 +115,8 @@ export default function Header() {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 w-full transition-all duration-300 px-4 md:px-12 py-4 flex items-center justify-between ${
+    <>
+      <header className={`fixed top-0 left-0 w-full transition-all duration-300 px-4 md:px-12 py-4 flex items-center justify-between ${
       mobileMenuOpen ? 'z-[150]' : 'z-50'
     } ${
       scrolled ? 'bg-background/90 backdrop-blur-md border-b border-white/5' : 'bg-gradient-to-b from-background/80 to-transparent'
@@ -358,55 +359,56 @@ export default function Header() {
           </Link>
         )}
       </div>
-
-      {/* Mobile Hamburger Drawer Menu */}
-      {mobileMenuOpen && (
-        <div 
-          className="fixed inset-0 z-[100] md:hidden bg-black/65 backdrop-blur-sm animate-fade-in"
-          onClick={() => setMobileMenuOpen(false)}
-        />
-      )}
-      <div
-        className={`fixed top-0 left-0 h-full w-[280px] z-[110] bg-[#0D0E12] border-r border-white/5 shadow-2xl transition-transform duration-300 md:hidden flex flex-col ${
-          mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
-      >
-        <div className="p-5 border-b border-white/5 flex items-center justify-between">
-          <span className="text-lg font-extrabold tracking-wider text-brand-accent">
-            SCF STUDIOS
-          </span>
-          <button
-            onClick={() => setMobileMenuOpen(false)}
-            className="p-1 hover:bg-white/5 rounded-full text-text-secondary hover:text-white transition-colors cursor-pointer"
-            title="Close Menu"
-          >
-            <X className="w-5.5 h-5.5" />
-          </button>
-        </div>
-
-        <nav className="flex flex-col p-6 space-y-4">
-          {[
-            { to: '/movies', label: 'Movies' },
-            { to: '/series', label: 'Series' },
-            { to: '/kids', label: 'Kids' },
-            { to: '/coming-soon', label: 'Upcoming' },
-          ].map(link => {
-            const isActive = currentPath === link.to;
-            return (
-              <Link
-                key={link.to}
-                to={link.to}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`text-base font-bold tracking-wide py-2 border-b border-white/[0.02] flex items-center transition-colors ${
-                  isActive ? 'text-brand-accent font-bold' : 'text-text-secondary hover:text-text-primary'
-                }`}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-        </nav>
-      </div>
     </header>
+
+    {/* Mobile Hamburger Drawer Menu - Placed outside <header> to avoid parent backdrop-filter rendering bugs */}
+    {mobileMenuOpen && (
+      <div 
+        className="fixed inset-0 z-[100] md:hidden bg-black/65 backdrop-blur-sm animate-fade-in"
+        onClick={() => setMobileMenuOpen(false)}
+      />
+    )}
+    <div
+      className={`fixed top-0 left-0 h-full w-[280px] z-[110] bg-[#0D0E12] border-r border-white/5 shadow-2xl transition-transform duration-300 md:hidden flex flex-col ${
+        mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+      }`}
+    >
+      <div className="p-5 border-b border-white/5 flex items-center justify-between">
+        <span className="text-lg font-extrabold tracking-wider text-brand-accent">
+          SCF STUDIOS
+        </span>
+        <button
+          onClick={() => setMobileMenuOpen(false)}
+          className="p-1 hover:bg-white/5 rounded-full text-text-secondary hover:text-white transition-colors cursor-pointer"
+          title="Close Menu"
+        >
+          <X className="w-5.5 h-5.5" />
+        </button>
+      </div>
+
+      <nav className="flex flex-col p-6 space-y-4">
+        {[
+          { to: '/movies', label: 'Movies' },
+          { to: '/series', label: 'Series' },
+          { to: '/kids', label: 'Kids' },
+          { to: '/coming-soon', label: 'Upcoming' },
+        ].map(link => {
+          const isActive = currentPath === link.to;
+          return (
+            <Link
+              key={link.to}
+              to={link.to}
+              onClick={() => setMobileMenuOpen(false)}
+              className={`text-base font-bold tracking-wide py-2 border-b border-white/[0.02] flex items-center transition-colors ${
+                isActive ? 'text-brand-accent font-bold' : 'text-text-secondary hover:text-text-primary'
+              }`}
+            >
+              {link.label}
+            </Link>
+          );
+        })}
+      </nav>
+    </div>
+  </>
   );
 }
