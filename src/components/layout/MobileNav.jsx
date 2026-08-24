@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter, Link } from '../../context/RouterContext';
 import { useAuth } from '../../context/AuthContext';
 import { Home, Heart, Search, Bell, Download } from 'lucide-react';
@@ -6,6 +6,28 @@ import { Home, Heart, Search, Bell, Download } from 'lucide-react';
 export default function MobileNav() {
   const { currentPath } = useRouter();
   const { activeProfile } = useAuth();
+  
+  const [scrollingDown, setScrollingDown] = useState(false);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Check scroll direction with a 10px threshold
+      if (Math.abs(currentScrollY - lastScrollY.current) > 10) {
+        if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
+          setScrollingDown(true);
+        } else {
+          setScrollingDown(false);
+        }
+        lastScrollY.current = currentScrollY;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   if (!activeProfile) return null;
 
@@ -19,7 +41,11 @@ export default function MobileNav() {
 
   return (
     <div 
-      className="md:hidden fixed bottom-1 left-1/2 -translate-x-1/2 w-[90%] max-w-[380px] z-40 bg-black/60 backdrop-blur-xl border border-white/10 py-3.5 px-6 flex items-center justify-between shadow-2xl rounded-full"
+      className={`md:hidden fixed bottom-1 left-1/2 -translate-x-1/2 z-40 bg-black/25 backdrop-blur-xl border border-white/10 shadow-2xl rounded-full transition-all duration-300 flex items-center justify-between ${
+        scrollingDown 
+          ? 'py-2 px-3.5 w-[80%] max-w-[280px]' 
+          : 'py-3 px-5 w-[90%] max-w-[350px]'
+      }`}
     >
       {navItems.map(item => {
         const isActive = currentPath === item.to || (item.to !== '/' && currentPath.startsWith(item.to));
