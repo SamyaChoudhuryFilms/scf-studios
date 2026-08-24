@@ -28,6 +28,7 @@ export default function Home() {
       title: m.title,
       description: m.description,
       coverImage: m.coverImageUrl || m.coverImage,
+      posterImage: m.posterUrl || m.poster,
       year: m.year,
       duration: m.duration,
       rating: m.rating || 'G',
@@ -44,6 +45,7 @@ export default function Home() {
       title: s.title,
       description: s.description,
       coverImage: s.coverImageUrl || s.coverImage,
+      posterImage: s.posterUrl || s.poster,
       year: s.year || 2026,
       duration: `${s.seasons?.length || 0} Season(s)`,
       rating: s.rating || 'G',
@@ -63,6 +65,7 @@ export default function Home() {
     title: "Welcome to SCF STUDIOS",
     description: "Start uploading movies, series, and cover artwork in the console to populate your streaming platform.",
     coverImage: "https://images.unsplash.com/photo-1574267431629-2e570b062c5f?q=80&w=1600&auto=format&fit=crop",
+    posterImage: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=800&auto=format&fit=crop",
     year: 2026,
     duration: "Platform",
     rating: "G",
@@ -249,12 +252,17 @@ export default function Home() {
     <div className="pb-16 min-h-screen bg-background">
       {/* Cinematic Hero Section */}
       <section className="relative w-full min-h-[50vh] sm:h-[65vh] md:h-[80vh] py-16 sm:py-24 overflow-hidden flex items-center group/hero">
-        {/* Widescreen cover image with transitions */}
+        {/* Widescreen cover image on desktop / Poster image on mobile */}
         <div className="absolute inset-0 z-0">
           <img
-            src={featured.coverImageUrl || featured.coverImage}
+            src={featured.posterImage || featured.coverImage}
             alt={featured.title}
-            className="w-full h-full object-cover opacity-80 scale-105 animate-fade-in transition-all duration-1000"
+            className="block sm:hidden w-full h-full object-cover opacity-85 scale-102 animate-fade-in transition-all duration-1000"
+          />
+          <img
+            src={featured.coverImage}
+            alt={featured.title}
+            className="hidden sm:block w-full h-full object-cover opacity-80 scale-105 animate-fade-in transition-all duration-1000"
           />
           {/* Gradients to blend cover image into black background */}
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/30"></div>
