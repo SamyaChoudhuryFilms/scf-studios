@@ -31,13 +31,27 @@ export default function StudioConsole() {
     setHomepageSections,
     addMovie,
     updateMovie,
-    deleteMovie,
+    deleteMovie: rawDeleteMovie,
     addSeries,
     updateSeries,
-    deleteSeries
+    deleteSeries: rawDeleteSeries
   } = useContent();
 
   const { addToast } = useToast();
+
+  const deleteMovie = (id) => {
+    if (window.confirm("Are you sure you want to delete this movie? This action is permanent.")) {
+      rawDeleteMovie(id);
+      addToast("Movie removed", "info");
+    }
+  };
+
+  const deleteSeries = (id) => {
+    if (window.confirm("Are you sure you want to delete this web series? This action is permanent and will delete all seasons/episodes.")) {
+      rawDeleteSeries(id);
+      addToast("Series removed", "info");
+    }
+  };
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -117,7 +131,7 @@ export default function StudioConsole() {
   const [newEpDescription, setNewEpDescription] = useState('');
   const [newEpVideo, setNewEpVideo] = useState('');
   const [newEpDuration, setNewEpDuration] = useState('');
- 
+  const [editingEpisodeId, setEditingEpisodeId] = useState(null);
   // Editing series reference
   const [editingSeries, setEditingSeries] = useState(null);
 
@@ -594,6 +608,9 @@ export default function StudioConsole() {
 
     // Remove a season
     const handleRemoveSeason = (seasonNum) => {
+      if (!window.confirm("Are you sure you want to delete this entire season? This will also delete all episodes inside it.")) {
+        return;
+      }
       if (seriesSeasons.length <= 1) {
         addToast("A series must have at least one season.", "warning");
         return;
@@ -652,8 +669,69 @@ export default function StudioConsole() {
       addToast("Episode added to list!", "success");
     };
 
+    // Edit and Update episode actions
+    const handleStartEditEpisode = (ep) => {
+      setNewEpTitle(ep.title);
+      setNewEpDescription(ep.description || '');
+      setNewEpThumbnail(ep.thumbnail || '');
+      setNewEpVideo(ep.video || '');
+      setNewEpDuration(ep.duration || '');
+      setEditingEpisodeId(ep.id);
+      addToast(`Editing: ${ep.title}`, "info");
+    };
+
+    const handleCancelEditEpisode = () => {
+      setNewEpTitle('');
+      setNewEpDescription('');
+      setNewEpThumbnail('');
+      setNewEpVideo('');
+      setNewEpDuration('');
+      setEditingEpisodeId(null);
+    };
+
+    const handleSaveEpisodeChanges = (e) => {
+      e.preventDefault();
+      if (!newEpTitle.trim()) {
+        addToast("Episode name is required", "error");
+        return;
+      }
+
+      const updated = seriesSeasons.map(s => {
+        if (s.seasonNumber === activeSeasonTab) {
+          const updatedEpisodes = s.episodes.map(ep => {
+            if (ep.id === editingEpisodeId) {
+              return {
+                ...ep,
+                title: newEpTitle,
+                description: newEpDescription,
+                thumbnail: newEpThumbnail || "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=500&auto=format&fit=crop",
+                video: newEpVideo,
+                duration: newEpDuration || "25m"
+              };
+            }
+            return ep;
+          });
+          return {
+            ...s,
+            episodes: updatedEpisodes
+          };
+        }
+        return s;
+      });
+
+      setSeriesSeasons(updated);
+      handleCancelEditEpisode();
+      addToast("Episode changes saved!", "success");
+    };
+
     // Remove episode from active season
     const handleRemoveEpisode = (epId) => {
+      if (!window.confirm("Are you sure you want to delete this episode?")) {
+        return;
+      }
+      if (editingEpisodeId === epId) {
+        handleCancelEditEpisode();
+      }
       const updated = seriesSeasons.map(s => {
         if (s.seasonNumber === activeSeasonTab) {
           const filtered = s.episodes.filter(ep => ep.id !== epId);
@@ -740,14 +818,24 @@ export default function StudioConsole() {
                         </span>
                       </div>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveEpisode(ep.id)}
-                      className="text-red-500 hover:text-red-400 p-1 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer flex items-center gap-1 text-[9px] uppercase font-bold"
-                    >
-                      <Trash2 className="w-3 h-3" />
-                      Delete
-                    </button>
+                    <div className="flex gap-2 items-center flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button
+                        type="button"
+                        onClick={() => handleStartEditEpisode(ep)}
+                        className="text-emerald-500 hover:text-emerald-400 p-1 flex items-center gap-1 text-[9px] uppercase font-bold cursor-pointer"
+                      >
+                        <Edit className="w-3 h-3" />
+                        Edit
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveEpisode(ep.id)}
+                        className="text-red-500 hover:text-red-400 p-1 flex items-center gap-1 text-[9px] uppercase font-bold cursor-pointer"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -755,7 +843,9 @@ export default function StudioConsole() {
 
             {/* New Episode Input Form */}
             <div className="bg-slate-950 p-3 rounded-lg border border-slate-800/80 space-y-3">
-              <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider block">Add Episode details</span>
+              <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider block">
+                {editingEpisodeId ? 'Edit Episode details' : 'Add Episode details'}
+              </span>
               
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1">
@@ -811,13 +901,32 @@ export default function StudioConsole() {
                 />
               </div>
 
-              <button
-                type="button"
-                onClick={handleAddEpisode}
-                className="w-full py-1.5 bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold rounded text-[10px] transition-all cursor-pointer"
-              >
-                + Add Episode to {activeSeason.name}
-              </button>
+              {editingEpisodeId ? (
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={handleSaveEpisodeChanges}
+                    className="flex-1 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold rounded text-[10px] transition-all cursor-pointer"
+                  >
+                    Save Changes
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCancelEditEpisode}
+                    className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded text-[10px] transition-all cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleAddEpisode}
+                  className="w-full py-1.5 bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold rounded text-[10px] transition-all cursor-pointer"
+                >
+                  + Add Episode to {activeSeason.name}
+                </button>
+              )}
             </div>
           </div>
         )}
@@ -1045,10 +1154,7 @@ export default function StudioConsole() {
                         <Edit className="w-4 h-4" />
                       </button>
                       <button
-                        onClick={() => {
-                          deleteMovie(m.id);
-                          addToast("Movie removed", "info");
-                        }}
+                        onClick={() => deleteMovie(m.id)}
                         className="text-slate-500 hover:text-red-400 p-1.5"
                         title="Delete Movie"
                       >
@@ -1102,10 +1208,7 @@ export default function StudioConsole() {
                         <Edit className="w-4 h-4" />
                       </button>
                       <button
-                        onClick={() => {
-                          deleteSeries(s.id);
-                          addToast("Series removed", "info");
-                        }}
+                        onClick={() => deleteSeries(s.id)}
                         className="text-slate-500 hover:text-red-400 p-1.5"
                         title="Delete Series"
                       >
@@ -1175,10 +1278,7 @@ export default function StudioConsole() {
                               <Edit className="w-4 h-4" />
                             </button>
                             <button
-                              onClick={() => {
-                                deleteMovie(m.id);
-                                addToast("Movie removed", "info");
-                              }}
+                              onClick={() => deleteMovie(m.id)}
                               className="text-slate-500 hover:text-red-400 p-1"
                             >
                               <Trash2 className="w-4 h-4" />
@@ -1211,10 +1311,7 @@ export default function StudioConsole() {
                               <Edit className="w-4 h-4" />
                             </button>
                             <button
-                              onClick={() => {
-                                deleteSeries(s.id);
-                                addToast("Series removed", "info");
-                              }}
+                              onClick={() => deleteSeries(s.id)}
                               className="text-slate-500 hover:text-red-400 p-1"
                             >
                               <Trash2 className="w-4 h-4" />
@@ -1286,10 +1383,7 @@ export default function StudioConsole() {
                               <Edit className="w-4 h-4" />
                             </button>
                             <button
-                              onClick={() => {
-                                deleteMovie(m.id);
-                                addToast("Movie removed", "info");
-                              }}
+                              onClick={() => deleteMovie(m.id)}
                               className="text-slate-500 hover:text-red-400 p-1"
                             >
                               <Trash2 className="w-4 h-4" />
@@ -1322,10 +1416,7 @@ export default function StudioConsole() {
                               <Edit className="w-4 h-4" />
                             </button>
                             <button
-                              onClick={() => {
-                                deleteSeries(s.id);
-                                addToast("Series removed", "info");
-                              }}
+                              onClick={() => deleteSeries(s.id)}
                               className="text-slate-500 hover:text-red-400 p-1"
                             >
                               <Trash2 className="w-4 h-4" />

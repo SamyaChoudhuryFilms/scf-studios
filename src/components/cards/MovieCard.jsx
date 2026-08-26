@@ -45,24 +45,29 @@ export default function MovieCard({ movie, fullWidth }) {
           loading="lazy"
         />
 
-        {/* Badges (Premium, Original, Coming Soon) */}
+        {/* Badges (Premium or Original only, one at a time) */}
         <div className="absolute top-2 left-2 z-10 flex flex-col gap-1">
-          {movie.isComingSoon && <Badge variant="warning" className="text-[7px] px-1 py-0">Coming Soon</Badge>}
-          {movie.isOriginal && <Badge variant="original" className="text-[7px] px-1 py-0">Original</Badge>}
-          {movie.isPremium && <Badge variant="premium" className="text-[7px] px-1 py-0">Premium</Badge>}
+          {movie.isOriginal ? (
+            <Badge variant="original" className="text-[8px] px-1 py-0">Original</Badge>
+          ) : movie.isPremium ? (
+            <Badge variant="premium" className="text-[8px] px-1 py-0">Premium</Badge>
+          ) : null}
         </div>
 
-        {/* Bottom overlay info bar - Always visible inside poster */}
-        <div className="absolute bottom-0 left-0 w-full p-2.5 bg-gradient-to-t from-black/95 via-black/55 to-transparent flex flex-col z-10 pointer-events-none">
-          <h4 className="text-[10px] sm:text-[11px] font-bold truncate text-white drop-shadow-md leading-tight">{movie.title}</h4>
-          <p className="text-[8px] sm:text-[9px] text-white/70 mt-0.5 leading-none">
-            {movie.year || (movie.releaseDate ? movie.releaseDate.substring(0, 4) : '2026')} &middot; {movie.genre}
-          </p>
-        </div>
+
 
         {/* Hover Panel on Desktop */}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-3 flex flex-col justify-end">
           <h4 className="text-xs font-bold text-text-primary mb-1 truncate">{movie.title}</h4>
+
+          {/* Badges in Hover Panel */}
+          {(movie.isOriginal || movie.isPremium || movie.isComingSoon) && (
+            <div className="flex gap-1 mb-1.5 flex-wrap">
+              {movie.isOriginal && <Badge variant="original" className="text-[7px] px-1 py-0">Original</Badge>}
+              {movie.isPremium && <Badge variant="premium" className="text-[7px] px-1 py-0">Premium</Badge>}
+              {movie.isComingSoon && <Badge variant="warning" className="text-[7px] px-1 py-0">Coming Soon</Badge>}
+            </div>
+          )}
           
           {/* Metadata */}
           <div className="flex flex-wrap items-center gap-1 text-[8px] text-text-secondary font-medium mb-3">

@@ -216,7 +216,7 @@ export default function Home() {
 
     return (
       <section key={section.id} className="relative group/rail py-6 ">
-        <h3 className="text-lg md:text-xl font-extrabold tracking-wide text-text-primary mb-4 flex items-center gap-2">
+        <h3 className="text-lg md:text-xl font-extrabold tracking-wide text-text-primary mb-4 flex items-center gap-2 px-4 md:px-12">
           {section.title}
           {section.type === 'originals' && <span className="text-[10px] bg-brand-accent text-white font-bold px-1.5 py-0.5 rounded tracking-widest uppercase">Premium</span>}
         </h3>
@@ -251,7 +251,7 @@ export default function Home() {
   return (
     <div className="pb-16 min-h-screen bg-background">
       {/* Cinematic Hero Section */}
-      <section className="relative w-full min-h-[50vh] sm:h-[65vh] md:h-[80vh] py-16 sm:py-24 overflow-hidden flex items-center group/hero">
+      <section className="relative w-full min-h-[50vh] sm:h-[65vh] md:h-[80vh] pt-24 pb-6 sm:pb-8 md:pb-10 overflow-hidden flex items-end group/hero">
         {/* Widescreen cover image on desktop / Poster image on mobile */}
         <div className="absolute inset-0 z-0">
           <img
@@ -265,97 +265,100 @@ export default function Home() {
             className="hidden sm:block w-full h-full object-cover opacity-80 scale-105 animate-fade-in transition-all duration-1000"
           />
           {/* Gradients to blend cover image into black background */}
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/30"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/20 to-transparent"></div>
+          <div className="absolute bottom-0 left-0 w-full h-[20%] bg-gradient-to-t from-background/90 to-transparent pointer-events-none"></div>
+          {/* Bottom-left dark gradient vignette to enhance text readability - covers 80% of banner height */}
+          <div className="absolute bottom-0 left-0 w-full h-[80%] bg-gradient-to-t from-black/90 via-black/60 via-black/25 to-transparent pointer-events-none"></div>
         </div>
 
         {/* Hero Content Overlay */}
-        <div className="relative z-10 w-full max-w-4xl px-4 md:px-12 mt-16 md:mt-24 select-text">
-          {/* Brand Signature Watermark Logo */}
-          <div className="flex items-center gap-2 mb-4 opacity-90 select-none">
-            <img src="/logo-square.jpg" className="h-8 object-contain invert brightness-125 rounded-md" alt="SCF STUDIOS" />
-            <span className="text-[10px] font-bold tracking-widest text-text-secondary uppercase">SCF STUDIOS Presents</span>
-          </div>
-
-          {/* Metadata badges row */}
-          <div className="flex items-center gap-2 mb-3.5">
-            {featured.type === 'series' && <Badge variant="default" className="bg-brand-accent/20 text-brand-accent border-brand-accent/30 font-bold">Series</Badge>}
-            <Badge variant="original">Original</Badge>
-            <span className="text-xs font-semibold text-text-secondary">{featured.year}</span>
-            <span className="text-text-muted">&middot;</span>
-            <span className="text-xs font-semibold text-text-secondary">{featured.duration}</span>
-            <span className="text-text-muted">&middot;</span>
-            <span className="text-[10px] font-bold border border-white/20 px-1 rounded text-text-secondary">{featured.rating}</span>
-            <span className="text-text-muted">&middot;</span>
-            <span className="text-xs font-bold text-brand-accent uppercase tracking-wider">{featured.quality}</span>
-          </div>
-
-          {/* Heading */}
-          <h1 className="text-2xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-4 uppercase leading-none drop-shadow-lg">
-            {featured.title}
-          </h1>
-
-          {/* Tagline / Description */}
-          <p className="text-sm md:text-base text-text-secondary font-medium leading-relaxed max-w-2xl mb-7 line-clamp-3 md:line-clamp-4 drop-shadow-md">
-            {featured.description}
-          </p>
-
-          {/* Languages & Sound Control */}
-          <div className="flex items-center gap-4 mb-6">
-            <div className="text-xs font-semibold text-text-muted">
-              Language: <span className="text-text-secondary">{featured.language}</span>
+        <div className="relative z-10 w-full px-4 md:px-12 select-text">
+          <div className="max-w-4xl">
+            {/* Brand Signature Watermark Logo */}
+            <div className="flex items-center gap-2 mb-4 opacity-90 select-none">
+              <img src="/logo-square.jpg" className="h-8 object-contain invert brightness-125 rounded-md" alt="SCF STUDIOS" />
+              <span className="text-[10px] font-bold tracking-widest text-text-secondary uppercase">SCF STUDIOS Presents</span>
             </div>
-            
-            {/* Mute/Unmute toggle inline with language */}
-            <button
-              onClick={() => setMuted(!muted)}
-              className="w-7 h-7 rounded-full bg-white/10 border border-white/10 text-white flex items-center justify-center hover:bg-white/15 hover:scale-105 active:scale-95 transition-all cursor-pointer"
-              title={muted ? "Unmute" : "Mute"}
-            >
-              {muted ? <VolumeX className="w-3.5 h-3.5 text-text-secondary" /> : <Volume2 className="w-3.5 h-3.5" />}
-            </button>
+
+            {/* Metadata badges row */}
+            <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-3.5">
+              {featured.type === 'series' && <Badge variant="default" className="bg-brand-accent/20 text-brand-accent border-brand-accent/30 font-bold">Series</Badge>}
+              <Badge variant="original">Original</Badge>
+              <span className="text-xs font-semibold text-text-secondary">{featured.year}</span>
+              <span className="text-text-muted">&middot;</span>
+              <span className="text-xs font-semibold text-text-secondary">{featured.duration}</span>
+              <span className="text-text-muted">&middot;</span>
+              <span className="text-[10px] font-bold border border-white/20 px-1 rounded text-text-secondary">{featured.rating}</span>
+              <span className="text-text-muted">&middot;</span>
+              <span className="text-xs font-bold text-brand-accent uppercase tracking-wider">{featured.quality}</span>
+              
+              {/* Language & Sound inline beside 4K */}
+              <span className="text-text-muted">&middot;</span>
+              <span className="text-xs font-semibold text-text-muted">
+                Language: <span className="text-text-secondary">{featured.language}</span>
+              </span>
+              <span className="text-text-muted">&middot;</span>
+              <button
+                onClick={() => setMuted(!muted)}
+                className="w-6 h-6 rounded-full bg-white/10 border border-white/10 text-white flex items-center justify-center hover:bg-white/15 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                title={muted ? "Unmute" : "Mute"}
+              >
+                {muted ? <VolumeX className="w-3 h-3 text-text-secondary" /> : <Volume2 className="w-3 h-3" />}
+              </button>
+            </div>
+
+            {/* Heading */}
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-2.5 uppercase leading-none drop-shadow-lg">
+              {featured.title}
+            </h1>
+
+            {/* Tagline / Description */}
+            <p className="text-xs md:text-sm text-text-secondary font-medium leading-tight max-w-xl mb-5 line-clamp-3 md:line-clamp-4 drop-shadow-md">
+              {featured.description}
+            </p>
           </div>
 
-          {/* Interactive Hero Controls */}
-          <div className="flex flex-row items-center gap-2 sm:gap-3 w-full mb-6">
-            <button
-              onClick={handleHeroPlay}
-              className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 bg-brand-accent hover:bg-brand-accent-hover text-white font-bold rounded-lg shadow-lg shadow-brand-accent/20 transition-all hover:scale-105 active:scale-95 text-[11px] sm:text-xs md:text-sm whitespace-nowrap"
-            >
-              <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-white" />
-              Watch Now
-            </button>
+          {/* Interactive Hero Controls & Scroller Dots */}
+          <div className="relative flex flex-col md:flex-row md:items-center w-full mb-2 gap-6 md:gap-0 mt-6">
+            <div className="flex flex-row items-center gap-2 sm:gap-3">
+              <button
+                onClick={handleHeroPlay}
+                className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 bg-brand-accent hover:bg-brand-accent-hover text-white font-bold rounded-lg shadow-lg shadow-brand-accent/20 transition-all hover:scale-105 active:scale-95 text-[11px] sm:text-xs md:text-sm whitespace-nowrap"
+              >
+                <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-white" />
+                Watch Now
+              </button>
 
-            <button
-              onClick={handleHeroToggleList}
-              className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-white/10 hover:bg-white/15 border border-white/10 text-white font-bold rounded-lg transition-all hover:scale-105 active:scale-95 text-[11px] sm:text-xs md:text-sm whitespace-nowrap"
-            >
-              {isAdded ? <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400" /> : <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
-              My List
-            </button>
+              <button
+                onClick={handleHeroToggleList}
+                className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-white/10 hover:bg-white/15 border border-white/10 text-white font-bold rounded-lg transition-all hover:scale-105 active:scale-95 text-[11px] sm:text-xs md:text-sm whitespace-nowrap"
+              >
+                {isAdded ? <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400" /> : <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
+                My List
+              </button>
 
-            <button
-              onClick={handleHeroInfo}
-              className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-white/10 hover:bg-white/15 border border-white/10 text-white font-bold rounded-lg transition-all hover:scale-105 active:scale-95 text-[11px] sm:text-xs md:text-sm whitespace-nowrap"
-            >
-              <Info className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              More Info
-            </button>
-          </div>
+              <button
+                onClick={handleHeroInfo}
+                className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-white/10 hover:bg-white/15 border border-white/10 text-white font-bold rounded-lg transition-all hover:scale-105 active:scale-95 text-[11px] sm:text-xs md:text-sm whitespace-nowrap"
+              >
+                <Info className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                More Info
+              </button>
+            </div>
 
-          {/* Scroller Dots (Centered below controls) */}
-          <div className="flex justify-center items-center w-full mt-6">
-            <div className="flex gap-1.5">
-              {featuredSlides.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setFeaturedIndex(idx)}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    featuredIndex === idx ? 'w-6 bg-brand-accent' : 'w-1.5 bg-white/20 hover:bg-white/40'
-                  }`}
-                  aria-label={`Go to slide ${idx + 1}`}
-                ></button>
-              ))}
+            {/* Scroller Dots (Centered horizontally on desktop relative to parent, centered below on mobile) */}
+            <div className="flex justify-center items-center md:absolute md:left-1/2 md:-translate-x-1/2 md:top-1/2 md:-translate-y-1/2 z-20">
+              <div className="flex gap-1.5">
+                {featuredSlides.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setFeaturedIndex(idx)}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      featuredIndex === idx ? 'w-6 bg-brand-accent' : 'w-1.5 bg-white/20 hover:bg-white/40'
+                    }`}
+                    aria-label={`Go to slide ${idx + 1}`}
+                  ></button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -365,13 +368,13 @@ export default function Home() {
           <>
             <button
               onClick={handlePrevSlide}
-              className="absolute left-2 sm:left-6 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/45 border border-white/10 text-white flex items-center justify-center hover:bg-black/85 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/45 border border-white/10 text-white flex items-center justify-center hover:bg-black/85 hover:scale-105 active:scale-95 transition-all cursor-pointer"
             >
               <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
             <button
               onClick={handleNextSlide}
-              className="absolute right-2 sm:right-6 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/45 border border-white/10 text-white flex items-center justify-center hover:bg-black/85 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/45 border border-white/10 text-white flex items-center justify-center hover:bg-black/85 hover:scale-105 active:scale-95 transition-all cursor-pointer"
             >
               <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>

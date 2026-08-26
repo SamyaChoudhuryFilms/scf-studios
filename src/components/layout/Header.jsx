@@ -119,8 +119,12 @@ export default function Header() {
       <header className={`fixed top-0 left-0 w-full transition-all duration-300 px-4 md:px-12 py-4 flex items-center justify-between ${
       mobileMenuOpen ? 'z-[150]' : 'z-50'
     } ${
-      scrolled ? 'bg-background/90 backdrop-blur-md border-b border-white/5' : 'bg-gradient-to-b from-background/80 to-transparent'
+      scrolled ? 'bg-black/90 backdrop-blur-md border-b border-white/5' : 'bg-transparent'
     }`}>
+      {/* Smooth deep gradient that stretches far below the menu height to eliminate any visible gradient line */}
+      {!scrolled && (
+        <div className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-black/90 via-black/60 via-black/25 via-black/5 to-transparent pointer-events-none -z-10"></div>
+      )}
       {/* Brand Wordmark Logo */}
       <div className="flex items-center gap-3 md:gap-8">
         {activeProfile && (

@@ -50,26 +50,32 @@ export default function SeriesCard({ series, fullWidth }) {
           loading="lazy"
         />
 
-        {/* Badges */}
+        {/* Badges (Premium or Original only, one at a time) */}
         <div className="absolute top-2 left-2 z-10 flex flex-col gap-1">
-          {series.isOriginal && <Badge variant="original" className="text-[7px] px-1 py-0">Original</Badge>}
-          {series.isPremium && <Badge variant="premium" className="text-[7px] px-1 py-0">Premium</Badge>}
-          <Badge variant="default" className="text-[7px] px-1 py-0 bg-black/40 text-white border-transparent">
+          {series.isOriginal ? (
+            <Badge variant="original" className="text-[8px] px-1 py-0">Original</Badge>
+          ) : series.isPremium ? (
+            <Badge variant="premium" className="text-[8px] px-1 py-0">Premium</Badge>
+          ) : null}
+          <Badge variant="default" className="text-[8px] px-1 py-0 bg-black/40 text-white border-transparent">
             {totalSeasons} {totalSeasons === 1 ? 'Season' : 'Seasons'}
           </Badge>
         </div>
 
-        {/* Bottom overlay info bar - Always visible inside poster */}
-        <div className="absolute bottom-0 left-0 w-full p-2.5 bg-gradient-to-t from-black/95 via-black/55 to-transparent flex flex-col z-10 pointer-events-none">
-          <h4 className="text-[10px] sm:text-[11px] font-bold truncate text-white drop-shadow-md leading-tight">{series.title}</h4>
-          <p className="text-[8px] sm:text-[9px] text-white/70 mt-0.5 leading-none">
-            {series.language} &middot; Series
-          </p>
-        </div>
+
 
         {/* Hover Panel on Desktop */}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-3 flex flex-col justify-end">
           <h4 className="text-xs font-bold text-text-primary mb-1 truncate">{series.title}</h4>
+
+          {/* Badges in Hover Panel */}
+          {(series.isOriginal || series.isPremium || series.isComingSoon) && (
+            <div className="flex gap-1 mb-1.5 flex-wrap">
+              {series.isOriginal && <Badge variant="original" className="text-[7px] px-1 py-0">Original</Badge>}
+              {series.isPremium && <Badge variant="premium" className="text-[7px] px-1 py-0">Premium</Badge>}
+              {series.isComingSoon && <Badge variant="warning" className="text-[7px] px-1 py-0">Coming Soon</Badge>}
+            </div>
+          )}
           
           <div className="flex flex-wrap items-center gap-1 text-[8px] text-text-secondary font-medium mb-3">
             <span>{series.genre}</span>
