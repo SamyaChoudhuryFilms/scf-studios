@@ -257,12 +257,12 @@ export default function Home() {
           <img
             src={featured.posterImage || featured.coverImage}
             alt={featured.title}
-            className="block sm:hidden w-full h-full object-cover opacity-85 scale-102 animate-fade-in transition-all duration-1000"
+            className="block sm:hidden w-full h-full object-cover opacity-100 scale-102 animate-fade-in transition-all duration-1000"
           />
           <img
             src={featured.coverImage}
             alt={featured.title}
-            className="hidden sm:block w-full h-full object-cover opacity-80 scale-105 animate-fade-in transition-all duration-1000"
+            className="hidden sm:block w-full h-full object-cover opacity-100 scale-105 animate-fade-in transition-all duration-1000"
           />
           {/* Gradients to blend cover image into black background */}
           <div className="absolute bottom-0 left-0 w-full h-[20%] bg-gradient-to-t from-background/90 to-transparent pointer-events-none"></div>
