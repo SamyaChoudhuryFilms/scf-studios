@@ -395,7 +395,7 @@ export default function Header() {
           { to: '/movies', label: 'Movies' },
           { to: '/series', label: 'Series' },
           { to: '/kids', label: 'Kids' },
-          { to: '/coming-soon', label: 'Upcoming' },
+          { to: '/coming-soon', label: 'Coming Soon' },
         ].map(link => {
           const isActive = currentPath === link.to;
           return (

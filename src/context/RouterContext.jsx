@@ -6,10 +6,12 @@ export const useRouter = () => useContext(RouterContext);
 
 export const RouterProvider = ({ children }) => {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  const [currentSearch, setCurrentSearch] = useState(window.location.search);
 
   useEffect(() => {
     const handlePopState = () => {
       setCurrentPath(window.location.pathname);
+      setCurrentSearch(window.location.search);
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
@@ -17,7 +19,9 @@ export const RouterProvider = ({ children }) => {
 
   const navigate = (path) => {
     window.history.pushState(null, '', path);
-    setCurrentPath(path);
+    const [pathname, search = ''] = path.split('?');
+    setCurrentPath(pathname);
+    setCurrentSearch(search ? `?${search}` : '');
     window.scrollTo(0, 0);
   };
 
@@ -42,7 +46,7 @@ export const RouterProvider = ({ children }) => {
   };
 
   return (
-    <RouterContext.Provider value={{ currentPath, navigate, matchRoute }}>
+    <RouterContext.Provider value={{ currentPath, currentSearch, navigate, matchRoute }}>
       {children}
     </RouterContext.Provider>
   );

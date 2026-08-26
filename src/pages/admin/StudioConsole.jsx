@@ -942,7 +942,7 @@ export default function StudioConsole() {
       case '/studio-console/movies': return 'movies';
       case '/studio-console/series': return 'series';
       case '/studio-console/kids': return 'kids';
-      case '/studio-console/upcoming': return 'upcoming';
+      case '/studio-console/coming-soon': return 'coming-soon';
       case '/studio-console/users': return 'users';
       case '/studio-console/settings': return 'settings';
       default: return 'dashboard';
@@ -995,7 +995,7 @@ export default function StudioConsole() {
             { id: 'movies', name: 'Manage Movies', icon: Film, route: '/studio-console/movies' },
             { id: 'series', name: 'Manage Series', icon: Tv, route: '/studio-console/series' },
             { id: 'kids', name: 'Kids Content', icon: Smile, route: '/studio-console/kids' },
-            { id: 'upcoming', name: 'Upcoming Releases', icon: Calendar, route: '/studio-console/upcoming' },
+            { id: 'coming-soon', name: 'Coming Soon', icon: Calendar, route: '/studio-console/coming-soon' },
             { id: 'users', name: 'Admin Registry', icon: Users, route: '/studio-console/users' },
             { id: 'settings', name: 'System Config', icon: Settings, route: '/studio-console/settings' }
           ].map(tab => {
@@ -1326,14 +1326,14 @@ export default function StudioConsole() {
             </div>
           )}
 
-          {/* Upcoming Content Management */}
-          {activeTab === 'upcoming' && (
+          {/* Coming Soon Content Management */}
+          {activeTab === 'coming-soon' && (
             <div className="space-y-6">
               <div className="flex flex-col sm:flex-row justify-between sm:items-center border-b border-slate-800 pb-4 mb-4 gap-4">
                 <div>
                   <h3 className="text-sm font-extrabold uppercase text-white tracking-widest flex items-center gap-2">
                     <Calendar className="w-5 h-5 text-emerald-400" />
-                    Upcoming Releases
+                    Coming Soon Releases
                   </h3>
                   <p className="text-[9px] text-slate-500 mt-1 uppercase font-semibold">Manage exclusive premieres and scheduled content.</p>
                 </div>
@@ -1346,7 +1346,7 @@ export default function StudioConsole() {
                     className="flex items-center gap-1.5 px-3 py-2 bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold rounded-lg text-xs"
                   >
                     <Plus className="w-4 h-4" />
-                    Add Upcoming Movie
+                    Add Coming Soon Movie
                   </button>
                   <button
                     onClick={() => {
@@ -1356,18 +1356,18 @@ export default function StudioConsole() {
                     className="flex items-center gap-1.5 px-3 py-2 bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold rounded-lg text-xs"
                   >
                     <Plus className="w-4 h-4" />
-                    Add Upcoming Series
+                    Add Coming Soon Series
                   </button>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Upcoming Movies Column */}
+                {/* Coming Soon Movies Column */}
                 <div className="space-y-4">
                   <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider border-b border-slate-800 pb-2">Movies</h4>
                   <div className="space-y-3">
                     {movies.filter(m => m.isComingSoon).length === 0 ? (
-                      <p className="text-[10px] text-slate-500 italic">No upcoming movies scheduled yet.</p>
+                      <p className="text-[10px] text-slate-500 italic">No coming soon movies scheduled yet.</p>
                     ) : (
                       movies.filter(m => m.isComingSoon).map(m => (
                         <div key={m.id} className="flex justify-between items-center p-3 rounded-lg bg-slate-900/20 border border-slate-800 text-xs">
@@ -1395,12 +1395,12 @@ export default function StudioConsole() {
                   </div>
                 </div>
 
-                {/* Upcoming Series Column */}
+                {/* Coming Soon Series Column */}
                 <div className="space-y-4">
                   <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider border-b border-slate-800 pb-2">Web Series</h4>
                   <div className="space-y-3">
                     {series.filter(s => s.isComingSoon).length === 0 ? (
-                      <p className="text-[10px] text-slate-500 italic">No upcoming series scheduled yet.</p>
+                      <p className="text-[10px] text-slate-500 italic">No coming soon series scheduled yet.</p>
                     ) : (
                       series.filter(s => s.isComingSoon).map(s => (
                         <div key={s.id} className="flex justify-between items-center p-3 rounded-lg bg-slate-900/20 border border-slate-800 text-xs">

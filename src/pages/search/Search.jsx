@@ -6,7 +6,7 @@ import SeriesCard from '../../components/cards/SeriesCard';
 import { Search as SearchIcon, X, Clock, Sparkles } from 'lucide-react';
 
 export default function Search() {
-  const { currentPath, navigate } = useRouter();
+  const { currentSearch, navigate } = useRouter();
   const { movies, series } = useContent();
 
   const [query, setQuery] = useState('');
@@ -16,14 +16,12 @@ export default function Search() {
     return saved ? JSON.parse(saved) : ["Kolkata", "Genesis", "Delhi", "Darjeeling"];
   });
 
-  // Pull initial query from URL (?q=something)
+  // Pull initial and subsequent queries from router's reactive search state
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(currentSearch);
     const q = urlParams.get('q');
-    if (q) {
-      setQuery(q);
-    }
-  }, [window.location.search]);
+    setQuery(q || '');
+  }, [currentSearch]);
 
   // Sync recent searches to localstorage
   useEffect(() => {

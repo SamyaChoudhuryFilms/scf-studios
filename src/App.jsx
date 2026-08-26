@@ -139,7 +139,7 @@ function AppContent() {
     if (currentPath === '/movies') return 'Movies';
     if (currentPath === '/series') return 'Series';
     if (currentPath === '/kids') return 'Kids';
-    if (currentPath === '/coming-soon') return 'Upcoming';
+    if (currentPath === '/coming-soon') return 'Coming Soon';
 
     return '';
   };

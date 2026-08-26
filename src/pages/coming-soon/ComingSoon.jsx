@@ -62,8 +62,8 @@ export default function ComingSoon() {
   }, [filteredItems, sortBy]);
 
   const defaultComingSoonSlide = {
-    id: "welcome-upcoming-slide",
-    title: "Upcoming Premieres",
+    id: "welcome-coming-soon-slide",
+    title: "Coming Soon Premieres",
     description: "Exclusive new blockbusters and original series are releasing soon. Check the list below to see what is coming next!",
     coverImage: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=1600&auto=format&fit=crop",
     posterImage: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=1600&auto=format&fit=crop",
@@ -77,7 +77,7 @@ export default function ComingSoon() {
   const [featuredIndex, setFeaturedIndex] = useState(0);
   const [muted, setMuted] = useState(true);
 
-  // Slides: all upcoming releases (movies + series combined, fallback to default if empty)
+  // Slides: all coming soon releases (movies + series combined, fallback to default if empty)
   const featuredSlides = useMemo(() => {
     const list = allComingSoon.length > 0 ? allComingSoon : [defaultComingSoonSlide];
     return list.map(item => ({
@@ -91,7 +91,7 @@ export default function ComingSoon() {
       rating: item.rating || 'PG',
       language: item.language || 'English',
       quality: item.quality || '4K UHD',
-      type: item.seasons ? 'series' : (item.id === "welcome-upcoming-slide" ? "welcome" : "movie"),
+      type: item.seasons ? 'series' : (item.id === "welcome-coming-soon-slide" ? "welcome" : "movie"),
       releaseDate: item.releaseDate
     }));
   }, [allComingSoon]);
@@ -114,22 +114,22 @@ export default function ComingSoon() {
   };
 
   const featured = featuredSlides[featuredIndex];
-  const isAdded = featured && featured.id !== 'welcome-upcoming-slide' && isInMyList(featured.id);
+  const isAdded = featured && featured.id !== 'welcome-coming-soon-slide' && isInMyList(featured.id);
 
   const handleHeroToggleList = () => {
-    if (!featured || featured.id === 'welcome-upcoming-slide') return;
+    if (!featured || featured.id === 'welcome-coming-soon-slide') return;
     toggleMyList(featured.id);
     addToast(isAdded ? "Removed from My List" : "Added to My List", "success");
   };
 
   const handleHeroInfo = () => {
-    if (!featured || featured.id === 'welcome-upcoming-slide') return;
+    if (!featured || featured.id === 'welcome-coming-soon-slide') return;
     navigate(featured.type === 'series' ? `/series/${featured.id}` : `/movie/${featured.id}`);
   };
 
   return (
     <div className="pb-16 min-h-screen bg-background select-text">
-      {/* Upcoming Spotlight Hero Scroller */}
+      {/* Coming Soon Spotlight Hero Scroller */}
       {featured && (
         <section className="relative w-full min-h-[50vh] sm:h-[65vh] md:h-[80vh] pt-24 pb-6 sm:pb-8 md:pb-10 overflow-hidden flex items-end group/hero">
           {/* Widescreen cover image on desktop / Poster image on mobile */}
@@ -204,7 +204,7 @@ export default function ComingSoon() {
 
             <div className="relative flex flex-col md:flex-row md:items-center w-full mb-2 gap-6 md:gap-0 mt-6">
               <div className="flex flex-row items-center gap-2 sm:gap-3">
-                {featured.id !== "welcome-upcoming-slide" && (
+                {featured.id !== "welcome-coming-soon-slide" && (
                   <>
                     <button
                       onClick={handleHeroToggleList}
@@ -345,16 +345,16 @@ export default function ComingSoon() {
             <Clock className="w-5 h-5 text-brand-accent" />
             Coming Soon
           </h1>
-          <p className="text-[10px] text-text-muted mt-1 uppercase font-semibold">Exclusive premieres and upcoming content releasing soon on SCF STUDIOS.</p>
+          <p className="text-[10px] text-text-muted mt-1 uppercase font-semibold">Exclusive premieres and coming soon content on SCF STUDIOS.</p>
         </div>
 
         {/* Content Grid */}
         {filteredAndSortedItems.length === 0 ? (
           <div className="py-24 text-center max-w-sm mx-auto px-4 animate-fade-in">
             <Clock className="w-12 h-12 mx-auto mb-4 text-text-muted opacity-40 animate-pulse" />
-            <h3 className="text-base font-bold text-white mb-1">No upcoming releases</h3>
+            <h3 className="text-base font-bold text-white mb-1">No coming soon releases</h3>
             <p className="text-xs text-text-secondary leading-relaxed">
-              We are finalizing our schedules. Check back soon for announcements of upcoming blockbusters!
+              We are finalizing our schedules. Check back soon for announcements of coming soon blockbusters!
             </p>
           </div>
         ) : (
