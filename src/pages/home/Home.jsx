@@ -274,12 +274,12 @@ export default function Home() {
         <div className="relative z-10 w-full px-4 md:px-12 select-text">
           <div className="max-w-4xl">
             {/* Brand Signature Watermark Logo */}
-            <div className="flex items-center gap-2 mb-4 opacity-90 select-none text-[10px] font-bold tracking-widest uppercase">
+            <div className="flex items-center gap-2 mb-4 opacity-90 select-none uppercase tracking-widest">
               <img src="/logo-square.jpg" className="h-8 object-contain invert brightness-125 rounded-md" alt="SCF Logo" />
-              <span>
-                <span className="text-brand-accent">SAMYA CHOUDHURY FILMS</span>{' '}
-                <span className="text-white">PRESENTS</span>
-              </span>
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-[11px] font-black text-brand-accent">SAMYA CHOUDHURY FILMS</span>
+                <span className="text-[9px] font-semibold text-white/95">PRESENTS</span>
+              </div>
             </div>
 
             {/* Metadata badges row */}
