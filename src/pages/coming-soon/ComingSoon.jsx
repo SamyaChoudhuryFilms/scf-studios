@@ -157,8 +157,8 @@ export default function ComingSoon() {
               <div className="flex items-center gap-2 mb-4 opacity-90 select-none uppercase tracking-widest">
                 <img src="/logo-square.jpg" className="h-8 object-contain invert brightness-125 rounded-md" alt="SCF Logo" />
                 <div className="flex items-baseline gap-1.5">
-                  <span className="text-[11px] font-black text-brand-accent">SAMYA CHOUDHURY FILMS</span>
-                  <span className="text-[9px] font-semibold text-white/95">PRESENTS</span>
+                  <span className="text-[11px] font-black text-white">SAMYA CHOUDHURY FILMS</span>
+                  <span className="text-[9px] font-semibold text-white/60">PRESENTS</span>
                 </div>
               </div>
 
