@@ -8,9 +8,14 @@ export default function Footer() {
         
         {/* Brand Column */}
         <div className="col-span-2 flex flex-col gap-4">
-          <Link to="/" className="text-xl font-extrabold tracking-wider text-brand-accent">
-            SCF STUDIOS
-          </Link>
+          <div className="flex flex-col gap-1">
+            <Link to="/" className="text-xl font-extrabold tracking-wider text-brand-accent">
+              SCF STUDIOS
+            </Link>
+            <span className="text-[10px] font-light text-white/70 tracking-wider uppercase">
+              Samya Choudhury Films
+            </span>
+          </div>
           <p className="max-w-xs text-text-secondary font-medium leading-relaxed">
             Premium cinematic blockbusters, web series, and kids entertainment, all in one space.
           </p>
